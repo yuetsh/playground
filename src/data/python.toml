@@ -1,0 +1,25 @@
+[[python]]
+title = "输出"
+content = """
+你好啊 1
+我是下一行
+"""
+blank = ['$$$', '"黄岩一职"', '$']
+answer = ['print(', ')']
+
+[[python]]
+title = "数字相加"
+content = """
+计算1+1
+"""
+blank = ['print(', '$$$',')']
+answer = ['1+1']
+
+[[python]]
+title = "换行的代码"
+content = """
+if 语句
+"""
+blank = ['x = 100', '\n', '$', ' x>60:', '\n', '    print("及格！")']
+answer = ['if']
+

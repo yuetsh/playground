@@ -1,0 +1,1 @@
+[{"title":"输出","content":"你好啊 1\n我是下一行\n","blank":["$$$","\"黄岩一职\"","$"],"answer":["print(",")"]},{"title":"数字相加","content":"计算1+1\n","blank":["print(","$$$",")"],"answer":["1+1"]},{"title":"换行的代码","content":"if 语句\n","blank":["x = 100","\\n","$"," x>60:","\\n","    print(\"及格！\")"],"answer":["if"]}]
