@@ -6,7 +6,8 @@ export interface Step {
 export interface Lesson {
   title: string
   content: string
-  blank: string[]
-  answer: string[]
-  interactive: boolean
+  blank?: string[]
+  answer?: string[]
+  nonInteractive?: boolean
+  code?: string[]
 }

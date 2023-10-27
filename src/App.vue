@@ -6,7 +6,7 @@
     :hljs="hljs"
     :theme="darkTheme"
   >
-    <n-layout  position="absolute">
+    <n-layout position="absolute">
       <n-layout-content>
         <n-space vertical class="container">
           <p>{{ step.current + 1 }} / {{ lessons.length }}</p>
@@ -14,14 +14,20 @@
             <template #header>{{ lesson.title }}</template>
             {{ lesson.content }}
           </n-card>
-
-          <n-card v-if="lesson.interactive && lesson.blank.length">
+          <n-card
+            v-if="lesson.nonInteractive"
+            v-for="(item, index) in lesson.code"
+            :key="index"
+          >
+            <n-code language="python" :code="item" show-line-numbers></n-code>
+          </n-card>
+          <n-card v-else>
             <span v-for="(item, index) in lesson.blank" :key="index">
-              <span v-if="item.includes('$')">
+              <span v-if="item.match(RE)">
                 <n-input
                   placeholder=""
                   autofocus
-                  :style="{ width: 50 * item.length + 'px' }"
+                  :style="{ width: 40 * item.length + 'px' }"
                   v-model:value="inputs[index]"
                 />
               </span>
@@ -36,7 +42,6 @@
               ></n-code>
             </span>
           </n-card>
-
           <n-space justify="space-between">
             <div>
               <n-button @click="prev" v-if="step.current !== 0"
@@ -63,37 +68,26 @@ import { computed, reactive, ref, watchEffect } from "vue"
 import confetti from "canvas-confetti"
 import hljs from "highlight.js/lib/core"
 import python from "highlight.js/lib/languages/python"
-import c from "highlight.js/lib/languages/c"
+// import c from "highlight.js/lib/languages/c"
 import { storage } from "./utils/storage"
 import { Lesson, Step } from "./utils/types"
 import lessons from "./data/python.json"
 
 hljs.registerLanguage("python", python)
-hljs.registerLanguage("c", c)
-
-// const themeOverrides: GlobalThemeOverrides = {
-  // common: {
-  //   fontSize: "24px",
-  // },
-  // Card: {
-  //   titleFontSizeMedium: '30px'
-  // },
-  // Input: {
-  //   fontSizeMedium: '24px'
-  // }
-// }
+// hljs.registerLanguage("c", c)
 
 const KEY = "step"
+const RE = /^\$+$/gi
 const status = reactive({
-  success: false,
-  error: false,
+  success: true,
 })
 const lesson = reactive<Lesson>({
   title: "",
   content: "",
   blank: [],
   answer: [],
-  interactive: true,
+  nonInteractive: false,
+  code: [],
 })
 const step = reactive({
   current: 0,
@@ -110,48 +104,57 @@ watchEffect(() => {
 
   lesson.title = lessonData.title
   lesson.content = lessonData.content
-  lesson.blank = lessonData.blank
-  lesson.answer = lessonData.answer
+  lesson.blank = lessonData.blank ?? []
+  lesson.answer = lessonData.answer ?? []
+  lesson.nonInteractive = !!lessonData.nonInteractive
+  lesson.code = lessonData.code ?? []
 
-  status.success = step.current < step.last || lesson.interactive === false
+  status.success = step.current < step.last || !!lesson.nonInteractive
 
   inputs.value = []
+  if (!lesson.nonInteractive && step.current < step.last) {
+    let j = 0
+    lesson.blank.forEach((it, i) => {
+      if (it.match(RE)) {
+        inputs.value[i] = lesson.answer![j++]
+      }
+    })
+  }
 })
-
-const userAnswers = computed(() => inputs.value.filter((it) => it !== ""))
 
 function prev() {
   const prevStep = step.current - 1
   if (prevStep <= -1) return
   step.current = prevStep
   status.success = step.last > prevStep
-  status.error = false
   updateStorage(prevStep)
 }
 
 function next() {
-  if (!status.success) {
-    status.error = true
-  }
+  checkAnswer()
+  if (!status.success) return
   const nextStep = step.current + 1
   if (step.current >= lessons.length - 1) return
   step.current = nextStep
   status.success = step.last > nextStep
-  status.error = false
   updateStorage(nextStep)
 }
 
+function checkAnswer() {
+  if (lesson.nonInteractive) return
+  const userAnswer = inputs.value.filter((it) => it !== "")
+  status.success = userAnswer.toString() === lesson.answer!.toString()
+}
+
 function bingo() {
-  console.log(userAnswers.value)
+  checkAnswer()
+  if (!status.success) return
   confetti({
     particleCount: 400,
     startVelocity: 30,
     gravity: 0.5,
     spread: 350,
-    origin: {
-      x: 0.5,
-      y: 0.4,
-    },
+    origin: { x: 0.5, y: 0.4 },
   })
 }
 
