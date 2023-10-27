@@ -9,7 +9,10 @@
     <n-layout position="absolute">
       <n-layout-content>
         <n-space vertical class="container">
-          <p>{{ step.current + 1 }} / {{ lessons.length }}</p>
+          <n-space justify="space-between" align="center">
+            <h2>徐越的代码闯关</h2>
+            <span>{{ step.current + 1 }} / {{ lessons.length }}</span>
+          </n-space>
           <n-card>
             <template #header>{{ lesson.title }}</template>
             {{ lesson.content }}
@@ -19,34 +22,33 @@
             v-for="(item, index) in lesson.code"
             :key="index"
           >
-            <n-code language="python" :code="item" show-line-numbers></n-code>
+            <n-code language="python" :code="item" show-line-numbers />
           </n-card>
           <n-card v-else>
             <span v-for="(item, index) in lesson.blank" :key="index">
               <span v-if="item.match(RE)">
                 <n-input
                   placeholder=""
-                  autofocus
                   :style="{ width: 40 * item.length + 'px' }"
                   v-model:value="inputs[index]"
                 />
               </span>
               <br v-else-if="item === '\\n'" />
               <n-code
+                v-else
                 inline
                 :trim="false"
                 language="python"
                 class="code"
                 :code="item"
-                v-else
-              ></n-code>
+              />
             </span>
           </n-card>
           <n-space justify="space-between">
             <div>
-              <n-button @click="prev" v-if="step.current !== 0"
-                >上一个</n-button
-              >
+              <n-button @click="prev" v-if="step.current !== 0">
+                上一个
+              </n-button>
             </div>
             <div>
               <n-button @click="next" v-if="step.current < lessons.length - 1">
@@ -63,7 +65,7 @@
 
 <script setup lang="ts">
 import { zhCN, dateZhCN, darkTheme } from "naive-ui"
-import { computed, reactive, ref, watchEffect } from "vue"
+import { reactive, ref, watchEffect } from "vue"
 // @ts-ignore
 import confetti from "canvas-confetti"
 import hljs from "highlight.js/lib/core"
@@ -76,7 +78,8 @@ import lessons from "./data/python.json"
 hljs.registerLanguage("python", python)
 // hljs.registerLanguage("c", c)
 
-const KEY = "step"
+const KEY_STEP = "step"
+const KEY_FINISHED = "finished"
 const RE = /^\$+$/gi
 const status = reactive({
   success: true,
@@ -96,7 +99,7 @@ const step = reactive({
 const inputs = ref<string[]>([])
 
 watchEffect(() => {
-  const cached = storage.get<Step>(KEY) || { last: 0, current: 0 }
+  const cached = storage.get<Step>(KEY_STEP) || { last: 0, current: 0 }
   step.current = cached.current
   step.last = cached.last
 
@@ -112,7 +115,8 @@ watchEffect(() => {
   status.success = step.current < step.last || !!lesson.nonInteractive
 
   inputs.value = []
-  if (!lesson.nonInteractive && step.current < step.last) {
+
+  if (status.success || storage.get(KEY_FINISHED)) {
     let j = 0
     lesson.blank.forEach((it, i) => {
       if (it.match(RE)) {
@@ -156,10 +160,11 @@ function bingo() {
     spread: 350,
     origin: { x: 0.5, y: 0.4 },
   })
+  storage.set(KEY_FINISHED, true)
 }
 
 function updateStorage(current: number) {
-  storage.set(KEY, {
+  storage.set(KEY_STEP, {
     current,
     last: current > step.last ? current : step.last,
   })
