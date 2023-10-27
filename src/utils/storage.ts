@@ -7,11 +7,7 @@ class Storage {
   public get<T>(key: string): T | null {
     const dataStr = localStorage.getItem(key)
     if (!dataStr) return null
-    try {
-      return JSON.parse(dataStr)
-    } catch (err) {
-      return dataStr
-    }
+    return JSON.parse(dataStr)
   }
 
   public remove(key: string) {

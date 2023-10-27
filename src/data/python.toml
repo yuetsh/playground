@@ -6,6 +6,7 @@ content = """
 """
 blank = ['$$$', '"黄岩一职"', '$']
 answer = ['print(', ')']
+interactive = true
 
 [[python]]
 title = "数字相加"
@@ -14,6 +15,7 @@ content = """
 """
 blank = ['print(', '$$$',')']
 answer = ['1+1']
+interactive = true
 
 [[python]]
 title = "换行的代码"
@@ -22,4 +24,22 @@ if 语句
 """
 blank = ['x = 100', '\n', '$', ' x>60:', '\n', '    print("及格！")']
 answer = ['if']
+interactive = true
 
+[[python]]
+title = "休息一下"
+content = """
+这里没有交互内容，只有一些文字
+"""
+blank = []
+answer = []
+interactive = false
+
+[[python]]
+title = "while"
+content = """
+while 语句
+"""
+blank = ['x = 100', '\n', '$', ' x>60', '$', '\n', '    print("', '$$$', '")']
+answer = ['if', ':', '及格！']
+interactive = true
