@@ -4,7 +4,7 @@
       <h2>徐越的代码闯关</h2>
       <n-space align="center">
         <span>{{ step.current + 1 }} / {{ lessons.length }}</span>
-        <n-button @click="reset">清除</n-button>
+        <n-button secondary size="small" @click="reset">重来</n-button>
       </n-space>
     </n-space>
     <n-card>
