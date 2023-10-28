@@ -60,3 +60,24 @@ if 的格式
 """
 blank = ['x = 100', '\n', '$', 'x>60', '$', '\n', '    print("', '$$', '")']
 answer = ['if ', ':', '及格！']
+
+[[python]]
+title = "休息一下"
+content = """
+这里没有交互内容，只有一些文字
+"""
+nonInteractive = true
+code = [
+"""
+print("sasa")
+print(sasa)
+""",
+"""
+print("sasa")
+print(sasa)
+""",
+"""
+if x == 20:
+    print("hjahah")
+"""
+]

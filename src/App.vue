@@ -1,5 +1,5 @@
 <template>
-  <n-space vertical class="container">
+  <n-space size="large" vertical class="container">
     <n-space justify="space-between" align="center">
       <h2>徐越的代码闯关</h2>
       <n-space align="center">
@@ -38,7 +38,7 @@
         />
       </span>
     </n-card>
-    <n-space justify="space-between">
+    <n-space class="actions" justify="space-between">
       <div>
         <n-button ghost @click="prev" v-if="step.current !== 0">
           上一个
@@ -63,7 +63,7 @@
 
 <script setup lang="ts">
 import { NButton, NInput, NSpace, NCode, NCard, NIcon } from "naive-ui"
-import { reactive, ref, watchEffect } from "vue"
+import { onMounted, reactive, ref, watchEffect } from "vue"
 // @ts-ignore
 import confetti from "canvas-confetti"
 
@@ -104,16 +104,9 @@ function initLesson() {
   lesson.code = lessonData.code ?? []
 }
 
-watchEffect(() => {
-  const cached = storage.get<Step>(KEY_STEP) || { last: 0, current: 0 }
-  step.current = cached.current
-  step.last = cached.last
-
-  initLesson()
-  status.success = step.current < step.last || !!lesson.nonInteractive
-  status.error = false
-  inputs.value = []
-
+function showAnswer() {
+  // 刚开始
+  if (step.last === 0) return
   if (status.success || storage.get(KEY_FINISHED)) {
     let j = 0
     lesson.blank!.forEach((it, i) => {
@@ -122,6 +115,18 @@ watchEffect(() => {
       }
     })
   }
+}
+
+onMounted(() => {
+  status.success = step.current < step.last || !!lesson.nonInteractive
+})
+
+watchEffect(() => {
+  const cached = storage.get<Step>(KEY_STEP) || { last: 0, current: 0 }
+  step.current = cached.current
+  step.last = cached.last
+  initLesson()
+  showAnswer()
 })
 
 function prev() {
@@ -131,12 +136,14 @@ function prev() {
   status.success = step.last > prevStep
   status.error = false
   updateStorage(prevStep)
+  inputs.value = []
 }
 
 function next() {
   checkAnswer()
   if (!status.success) {
     status.error = true
+    storage.remove(KEY_FINISHED)
     return
   }
   const nextStep = step.current + 1
@@ -145,10 +152,14 @@ function next() {
   status.success = step.last > nextStep
   status.error = false
   updateStorage(nextStep)
+  inputs.value = []
 }
 
 function checkAnswer() {
-  if (lesson.nonInteractive) return
+  if (lesson.nonInteractive) {
+    status.success = true
+    return
+  }
   const userAnswer = inputs.value.filter((it) => it !== "")
   status.success = userAnswer.toString() === lesson.answer!.toString()
 }
@@ -157,6 +168,7 @@ function bingo() {
   checkAnswer()
   if (!status.success) {
     status.error = true
+    storage.remove(KEY_FINISHED)
     return
   }
   confetti({
@@ -170,8 +182,9 @@ function bingo() {
 }
 
 function reset() {
-  storage.remove(KEY_STEP)
+  storage.set(KEY_STEP, { current: 0, last: 0 })
   storage.remove(KEY_FINISHED)
+  inputs.value = []
   status.success = true
   status.error = false
   step.current = 0
@@ -191,8 +204,8 @@ function updateStorage(current: number) {
 .container {
   box-sizing: border-box;
   width: 50vw;
-  height: 100vh;
   max-width: 800px;
+  padding: 0 16px 16px;
   margin: 0 auto;
 }
 
@@ -202,6 +215,10 @@ function updateStorage(current: number) {
 
 .icon {
   transform: translateY(3px);
+}
+
+.actions {
+  margin-top: 16px;
 }
 
 @media screen and (max-width: 800px) {
