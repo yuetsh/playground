@@ -29,7 +29,7 @@ title = "换行的代码"
 content = """
 if 语句
 """
-blank = ['x = 100', '\n', '$', ' x>60:', '\n', '    print("及格！")']
+blank = ['x = 100', '\n', '$', ' x>60:', '\n', '    print("及格！") # 输出及格！']
 answer = ['if']
 
 [[python]]

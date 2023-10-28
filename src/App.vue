@@ -184,12 +184,7 @@ function bingo() {
 function reset() {
   storage.set(KEY_STEP, { current: 0, last: 0 })
   storage.remove(KEY_FINISHED)
-  inputs.value = []
-  status.success = true
-  status.error = false
-  step.current = 0
-  step.last = 0
-  initLesson()
+  window.location.reload()
 }
 
 function updateStorage(current: number) {
