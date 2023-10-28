@@ -127,7 +127,6 @@ watchEffect(() => {
   step.last = cached.last
   initLesson()
   showAnswer()
-  console.log(111)
 })
 
 function prev() {
