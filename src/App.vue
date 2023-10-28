@@ -40,7 +40,7 @@
     </n-card>
     <n-space class="actions" justify="space-between">
       <div>
-        <n-button ghost @click="prev" v-if="step.current !== 0">
+        <n-button secondary @click="prev" v-if="step.current !== 0">
           上一个
         </n-button>
       </div>
@@ -52,7 +52,7 @@
           color="#d03050"
           class="icon"
         />
-        <n-button ghost @click="next" v-if="step.current < lessons.length - 1">
+        <n-button secondary @click="next" v-if="step.current < lessons.length - 1">
           下一个
         </n-button>
         <n-button @click="bingo" v-else>全部完成</n-button>
