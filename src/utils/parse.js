@@ -1,7 +1,7 @@
 import toml from "toml"
 import fs from "fs/promises"
 import path from "path"
-import process from 'process'
+import process from "process"
 
 const language = process.argv.slice(2)[0] || "python"
 
@@ -10,7 +10,10 @@ async function parse() {
     encoding: "utf8",
   })
   const data = toml.parse(content)
-  fs.writeFile(path.resolve(`src/data/${language}.json`), JSON.stringify(data[language]))
+  fs.writeFile(
+    path.resolve(`src/data/${language}.json`),
+    JSON.stringify(data[language]),
+  )
 }
 
 parse()
