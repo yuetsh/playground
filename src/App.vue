@@ -77,7 +77,7 @@ const KEY_FINISHED = "finished"
 const RE = /^\$+$/gi
 
 const status = reactive({
-  success: true,
+  success: false,
   error: false,
 })
 const lesson = reactive<Lesson>({
@@ -127,6 +127,7 @@ watchEffect(() => {
   step.last = cached.last
   initLesson()
   showAnswer()
+  console.log(111)
 })
 
 function prev() {
