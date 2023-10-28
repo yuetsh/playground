@@ -1,33 +1,10 @@
 import { createApp } from "vue"
+import { create } from "naive-ui"
 import "normalize.css"
-import "./index.css"
-import App from "./App.vue"
-import {
-  create,
-  NButton,
-  NConfigProvider,
-  NInput,
-  NSpace,
-  NCode,
-  NCard,
-  NLayout,
-  NLayoutContent,
-} from "naive-ui"
+import Layout from "./Layout.vue"
 
-const naive = create({
-  components: [
-    NButton,
-    NConfigProvider,
-    NSpace,
-    NInput,
-    NCode,
-    NCard,
-    NLayout,
-    NLayoutContent,
-  ],
-})
+const naive = create()
 
-const app = createApp(App)
-
+const app = createApp(Layout)
 app.use(naive)
 app.mount("#app")
