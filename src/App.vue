@@ -9,9 +9,9 @@
     <n-layout position="absolute">
       <n-layout-content>
         <n-space size="large" vertical class="container">
-          <Header :lessons="lessons" />
+          <Header :count="lessons.length" />
           <Content />
-          <Actions :lessons="lessons" />
+          <Actions :count="lessons.length" />
         </n-space>
       </n-layout-content>
     </n-layout>
@@ -49,17 +49,20 @@ watchEffect(() => {
   const lessonData = lessons[step.current]
   lesson.title = lessonData.title
   lesson.content = lessonData.content
-  lesson.blank = lessonData.blank ?? []
-  lesson.answer = lessonData.answer ?? []
+  lesson.blank = lessonData.blank || []
+  lesson.answer = lessonData.answer || []
   lesson.nonInteractive = !!lessonData.nonInteractive
-  lesson.code = lessonData.code ?? []
+  lesson.code = lessonData.code || []
+
+  // 重置用户输入框
+  inputs.value = new Array(lesson.blank.length).fill("")
 
   // 显示答案
   // 刚开始
   if (step.last === 0) return
   if (status.success || storage.get(KEY_FINISHED)) {
     let j = 0
-    lesson.blank!.forEach((it, i) => {
+    lesson.blank.forEach((it, i) => {
       if (it.match(RE)) {
         inputs.value[i] = lesson.answer![j++]
       }

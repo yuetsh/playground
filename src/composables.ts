@@ -1,5 +1,9 @@
-import { reactive, ref } from "vue"
+import { computed, reactive, ref } from "vue"
 import { Lesson } from "./utils/types"
+import { KEY_FINISHED, KEY_STEP } from "./utils/constants"
+import { storage } from "./utils/storage"
+// @ts-ignore
+import confetti from "canvas-confetti"
 
 export const status = reactive({
   success: false,
@@ -18,3 +22,69 @@ export const step = reactive({
   last: 0,
 })
 export const inputs = ref<string[]>([])
+export const contents = computed(() =>
+  lesson.content.split("\n").filter((it) => it !== ""),
+)
+
+export function reset() {
+  storage.set(KEY_STEP, { current: 0, last: 0 })
+  storage.remove(KEY_FINISHED)
+  window.location.reload()
+}
+
+export function prev() {
+  const prevStep = step.current - 1
+  if (prevStep <= -1) return
+  step.current = prevStep
+  status.success = step.last > prevStep
+  status.error = false
+  updateStorage(prevStep)
+}
+
+export function next(total: number) {
+  checkAnswer()
+  if (!status.success) {
+    status.error = true
+    storage.remove(KEY_FINISHED)
+    return
+  }
+  const nextStep = step.current + 1
+  if (step.current >= total - 1) return
+  step.current = nextStep
+  status.success = step.last > nextStep
+  status.error = false
+  updateStorage(nextStep)
+}
+
+export function bingo() {
+  checkAnswer()
+  if (!status.success) {
+    status.error = true
+    storage.remove(KEY_FINISHED)
+    return
+  }
+  confetti({
+    particleCount: 400,
+    startVelocity: 30,
+    gravity: 0.5,
+    spread: 350,
+    origin: { x: 0.5, y: 0.4 },
+  })
+  storage.set(KEY_FINISHED, true)
+}
+
+function checkAnswer() {
+  if (lesson.nonInteractive) {
+    status.success = true
+    return
+  }
+  const userAnswer = inputs.value.filter((it) => it !== "")
+  status.success = userAnswer.toString() === lesson.answer.toString()
+}
+
+function updateStorage(current: number) {
+  storage.set(KEY_STEP, {
+    current,
+    last: current > step.last ? current : step.last,
+  })
+}

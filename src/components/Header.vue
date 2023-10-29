@@ -11,7 +11,7 @@
       <h2>徐越的练习册</h2>
     </n-space>
     <n-space align="center">
-      <span>{{ step.current + 1 }} / {{ props.lessons.length }}</span>
+      <span>{{ step.current + 1 }} / {{ props.count }}</span>
       <n-button secondary size="small" @click="reset">重来</n-button>
     </n-space>
   </n-space>
@@ -23,14 +23,11 @@ import Menu from "../icons/Menu.vue"
 import Cat from "../icons/Cat.vue"
 import Dog from "../icons/Dog.vue"
 import Book from "../icons/Book.vue"
-import { KEY_FINISHED, KEY_STEP } from "../utils/constants"
-import { Lesson } from "../utils/types"
-import { storage } from "../utils/storage"
-import { step } from "../composables"
+import { step, reset } from "../composables"
 import { h } from "vue"
 
 const props = defineProps<{
-  lessons: Lesson[]
+  count: number
 }>()
 
 const menus: DropdownOption[] = [
@@ -59,11 +56,5 @@ const menus: DropdownOption[] = [
     },
   },
 ]
-
-function reset() {
-  storage.set(KEY_STEP, { current: 0, last: 0 })
-  storage.remove(KEY_FINISHED)
-  window.location.reload()
-}
 </script>
 ../store

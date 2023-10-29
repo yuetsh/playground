@@ -34,11 +34,8 @@
   </n-space>
 </template>
 <script lang="ts" setup>
-import { computed } from "vue";
-import { inputs, lesson } from "../composables"
+import { inputs, lesson, contents } from "../composables"
 import { RE } from "../utils/constants"
-
-const contents = computed(() => lesson.content.split("\n").filter(it => it !== ''))
 </script>
 <style scoped>
 .code {
