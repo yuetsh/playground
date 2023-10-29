@@ -1,11 +1,7 @@
 <template>
   <n-space justify="space-between" align="center">
     <n-space align="center">
-      <n-dropdown
-        placement="bottom-start"
-        :options="menus"
-        @select="handleSelectMenu"
-      >
+      <n-dropdown placement="bottom-start" :options="menus">
         <n-button quaternary circle>
           <template #icon>
             <n-icon :component="Menu" size="20" />
@@ -24,9 +20,9 @@
 import { NIcon } from "naive-ui"
 import type { DropdownOption } from "naive-ui"
 import Menu from "../icons/Menu.vue"
-import Lock from "../icons/Lock.vue"
-import Play from "../icons/Play.vue"
-import Done from "../icons/Done.vue"
+import Cat from "../icons/Cat.vue"
+import Dog from "../icons/Dog.vue"
+import Book from "../icons/Book.vue"
 import { KEY_FINISHED, KEY_STEP } from "../utils/constants"
 import { Lesson } from "../utils/types"
 import { storage } from "../utils/storage"
@@ -38,12 +34,31 @@ const props = defineProps<{
 }>()
 
 const menus: DropdownOption[] = [
-  { label: "基础语法", key: "1", icon: () => h(NIcon, { component: Done }) },
-  { label: "进阶语法", key: "2", icon: () => h(NIcon, { component: Play }) },
-  { label: "高级语法", key: "3", icon: () => h(NIcon, { component: Lock }) },
+  {
+    label: "判题狗",
+    key: "1",
+    icon: () => h(NIcon, { component: Dog }),
+    props: {
+      onClick: () => window.open("https://oj.hyyz.izhai.net"),
+    },
+  },
+  {
+    label: "自测猫",
+    key: "2",
+    icon: () => h(NIcon, { component: Cat }),
+    props: {
+      onClick: () => window.open("https://code.hyyz.izhai.net"),
+    },
+  },
+  {
+    label: "编程书",
+    key: "3",
+    icon: () => h(NIcon, { component: Book }),
+    props: {
+      onClick: () => window.open("https://book.hyyz.izhai.net"),
+    },
+  },
 ]
-
-function handleSelectMenu() {}
 
 function reset() {
   storage.set(KEY_STEP, { current: 0, last: 0 })

@@ -10,7 +10,7 @@ export default defineConfig({
         manualChunks: {
           hljs: ["highlight.js"],
           confetti: ["canvas-confetti"],
-          ui: ['naive-ui']
+          ui: ["naive-ui"],
         },
       },
     },
