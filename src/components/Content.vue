@@ -2,7 +2,7 @@
   <n-space size="large" vertical>
     <n-card>
       <template #header>{{ lesson.title }}</template>
-      {{ lesson.content }}
+      <p class="content" v-for="item in contents">{{ item }}</p>
     </n-card>
     <n-card
       v-if="lesson.nonInteractive"
@@ -34,12 +34,23 @@
   </n-space>
 </template>
 <script lang="ts" setup>
+import { computed } from "vue";
 import { inputs, lesson } from "../composables"
 import { RE } from "../utils/constants"
+
+const contents = computed(() => lesson.content.split("\n").filter(it => it !== ''))
 </script>
 <style scoped>
 .code {
   white-space: pre;
+}
+
+.content {
+  margin-top: 0;
+}
+
+.content:last-child {
+  margin-bottom: 0;
 }
 </style>
 ../store

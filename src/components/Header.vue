@@ -8,7 +8,7 @@
           </template>
         </n-button>
       </n-dropdown>
-      <h2>徐越的代码闯关</h2>
+      <h2>徐越的练习册</h2>
     </n-space>
     <n-space align="center">
       <span>{{ step.current + 1 }} / {{ props.lessons.length }}</span>
