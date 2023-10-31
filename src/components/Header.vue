@@ -57,4 +57,3 @@ const menus: DropdownOption[] = [
   },
 ]
 </script>
-../store

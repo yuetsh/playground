@@ -11,6 +11,8 @@ import {
   NConfigProvider,
   NLayout,
   NLayoutContent,
+  NP,
+  NTag
 } from "naive-ui"
 import "normalize.css"
 import App from "./App.vue"
@@ -27,6 +29,8 @@ const naive = create({
     NConfigProvider,
     NLayout,
     NLayoutContent,
+    NP,
+    NTag
   ],
 })
 

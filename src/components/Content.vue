@@ -2,7 +2,7 @@
   <n-space size="large" vertical>
     <n-card>
       <template #header>{{ lesson.title }}</template>
-      <p class="content" v-for="item in contents">{{ item }}</p>
+      <n-p v-for="item in contents">{{ item }}</n-p>
     </n-card>
     <n-card
       v-if="lesson.nonInteractive"
@@ -41,13 +41,4 @@ import { RE } from "../utils/constants"
 .code {
   white-space: pre;
 }
-
-.content {
-  margin-top: 0;
-}
-
-.content:last-child {
-  margin-bottom: 0;
-}
 </style>
-../store

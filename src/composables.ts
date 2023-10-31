@@ -48,29 +48,22 @@ export function next(total: number) {
     storage.remove(KEY_FINISHED)
     return
   }
-  const nextStep = step.current + 1
-  if (step.current >= total - 1) return
-  step.current = nextStep
-  status.success = step.last > nextStep
-  status.error = false
-  updateStorage(nextStep)
-}
-
-export function bingo() {
-  checkAnswer()
-  if (!status.success) {
-    status.error = true
-    storage.remove(KEY_FINISHED)
-    return
+  if (step.current < total - 1) {
+    const nextStep = step.current + 1
+    step.current = nextStep
+    status.success = step.last > nextStep
+    status.error = false
+    updateStorage(nextStep)
+  } else {
+    confetti({
+      particleCount: 400,
+      startVelocity: 30,
+      gravity: 0.5,
+      spread: 350,
+      origin: { x: 0.5, y: 0.4 },
+    })
+    storage.set(KEY_FINISHED, true)
   }
-  confetti({
-    particleCount: 400,
-    startVelocity: 30,
-    gravity: 0.5,
-    spread: 350,
-    origin: { x: 0.5, y: 0.4 },
-  })
-  storage.set(KEY_FINISHED, true)
 }
 
 function checkAnswer() {
