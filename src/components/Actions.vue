@@ -3,8 +3,8 @@
     <div>
       <n-space vertical align="start" v-if="step.current !== 0">
         <n-button secondary @click="prev">上一个</n-button>
-        <n-tag v-if="width > 800" class="tag" size="small" :bordered="false">
-          方向键左键
+        <n-tag class="tag" size="small" :bordered="false">
+          {{ isDesktop ? "方向键左键" : "向右滑动" }}
         </n-tag>
       </n-space>
     </div>
@@ -21,14 +21,14 @@
           {{ step.current < props.count - 1 ? "下一步" : "全部完成" }}
         </n-button>
       </n-space>
-      <n-tag v-if="width > 800" class="tag" size="small" :bordered="false">
-        方向键右键
+      <n-tag class="tag" size="small" :bordered="false">
+        {{ isDesktop ? "方向键右键" : "向左滑动" }}
       </n-tag>
     </n-space>
   </n-space>
 </template>
 <script lang="ts" setup>
-import { watch } from "vue"
+import { computed, watch } from "vue"
 import { useMagicKeys, useWindowSize } from "@vueuse/core"
 import { step, status, next, prev } from "../composables"
 import Lock from "../icons/Lock.vue"
@@ -39,6 +39,8 @@ const props = defineProps<{
 
 const { left, right } = useMagicKeys()
 const { width } = useWindowSize()
+
+const isDesktop = computed(() => width.value > 800)
 
 watch(right, (v) => {
   if (v) next(props.count)

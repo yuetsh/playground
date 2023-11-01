@@ -6,7 +6,7 @@
     :hljs="hljs"
     :theme="darkTheme"
   >
-    <n-layout position="absolute">
+    <n-layout position="absolute" ref="wrap">
       <n-layout-content>
         <n-space size="large" vertical class="container">
           <Header :count="lessons.length" />
@@ -19,15 +19,16 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watchEffect } from "vue"
+import { onMounted, ref, watch, watchEffect } from "vue"
 import { zhCN, dateZhCN, darkTheme } from "naive-ui"
+import { useSwipe } from "@vueuse/core"
 import Header from "./components/Header.vue"
 import Content from "./components/Content.vue"
 import Actions from "./components/Actions.vue"
 import { storage } from "./utils/storage"
 import { Step } from "./utils/types"
 import { KEY_FINISHED, KEY_STEP, RE } from "./utils/constants"
-import { step, status, lesson, inputs } from "./composables"
+import { step, status, lesson, inputs, next, prev } from "./composables"
 import lessons from "./data/python.json"
 
 import hljs from "highlight.js/lib/core"
@@ -36,6 +37,9 @@ import python from "highlight.js/lib/languages/python"
 
 hljs.registerLanguage("python", python)
 // hljs.registerLanguage("c", c)
+
+const wrap = ref(null)
+const { direction } = useSwipe(wrap)
 
 onMounted(() => {
   status.success = step.current < step.last || !!lesson.nonInteractive
@@ -67,6 +71,15 @@ watchEffect(() => {
         inputs.value[i] = lesson.answer![j++]
       }
     })
+  }
+})
+
+watch(direction, () => {
+  if (direction.value === "left") {
+    next(lessons.length)
+  }
+  if (direction.value === "right") {
+    prev()
   }
 })
 </script>
