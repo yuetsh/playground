@@ -55,6 +55,7 @@ export function next(total: number) {
     status.error = false
     updateStorage(nextStep)
   } else {
+    if (storage.get(KEY_FINISHED)) return
     confetti({
       particleCount: 400,
       startVelocity: 30,

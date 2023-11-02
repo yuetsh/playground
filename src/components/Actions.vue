@@ -18,7 +18,7 @@
           class="icon"
         />
         <n-button secondary @click="() => next(props.count)">
-          {{ step.current < props.count - 1 ? "下一步" : "全部完成" }}
+          {{ step.current < props.count - 1 ? "下一个" : "全部完成" }}
         </n-button>
       </n-space>
       <n-tag class="tag" size="small" :bordered="false">
