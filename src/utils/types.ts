@@ -7,7 +7,7 @@ export interface Lesson {
   title: string
   content: string
   blank: string[]
-  answer: string[]
+  answer: string[] | string[][]
   nonInteractive: boolean
   code: string[]
 }

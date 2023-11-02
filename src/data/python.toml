@@ -8,7 +8,7 @@ blank = ['$']
 answer = ['ok']
 
 [[python]]
-title = "输出"
+title = "输出语句"
 content = """
 目标：输出黄岩一职，请补全代码！
 """
@@ -16,49 +16,74 @@ blank = ['$$', '"黄岩一职"', '$']
 answer = ['print(', ')']
 
 [[python]]
-title = "数字相加"
+title = "输出语句：文字"
 content = """
-如何计算1+1
+同样这题考察的也是输出语句，请输出Python 编程入门，注意引号，注意空格。
+（格式必须严格按照提示，不然就算对，也通过不了！）
+"""
+blank = ['print(', '$$$$', ')']
+answer = [['"Python 编程入门"', "'Python 编程入门'"]]
+
+[[python]]
+title = "输出语句：数字计算"
+content = """
+让 Python 来计算 1+1 的值，不需要你自己计算。
 """
 blank = ['print(', '$$',')']
 answer = ['1+1']
 
 [[python]]
-title = "换行的代码"
+title = "输出语句：输出多个值"
 content = """
-if 语句
+在 print() 中可以输出多个内容，之间用逗号隔开。
+请输出尼尔 机械纪元，注意文字用引号包裹。
 """
-blank = ['x = 100', '\n', '$', ' x>60:', '\n', '    print("及格！")']
-answer = ['if']
+blank = ['print(', '$$','$', '$$$',')']
+answer = [['"尼尔"', "'尼尔'"], [',', ', '], ['"机械纪元"', "'机械纪元'"]]
 
 [[python]]
-title = "休息一下"
+title = "输出语句：高级用法 —— 自定义分隔符号"
 content = """
-这里没有交互内容，只有一些文字
+使用 sep="" 可以用于取消多个输出之间的空格。
+在引号里面可以写入你想要的分隔符，比如 sep="-"，表示用短横线来分隔。
+注意逗号和等号！
 """
 nonInteractive = true
-code = [
-"""
-print("sasa")
-print(sasa)
-""",
-"""
-print("sasa")
-print(sasa)
-""",
-"""
-if x == 20:
-    print("hjahah")
-"""
-]
+code = ["""print("尼尔", "机械纪元", sep="")"""]
 
 [[python]]
-title = "复杂的 if"
+title = "输出语句：高级用法 —— 自定义分隔符号"
 content = """
-if 的格式，注意 if 后面的空格，以及条件后面的冒号
+用下划线进行分割。
 """
-blank = ['x = 100', '\n', '$', 'x>60', '$', '\n', '    print("', '$$', '") # 输出及格！']
-answer = ['if ', ':', '及格！']
+blank = ['print("尼尔", "机械纪元"', "自动人形", '$$$',')']
+answer = [[', sep="_"', ',sep="_"', ",sep='_'", ", sep='_'"]]
+
+[[python]]
+title = "变量"
+content = """
+变量是编程中的重要概念，方便我们编写可读性很高的代码。
+变量有很多类型，包括文字、数字、真假、列表、字典等。
+"""
+code = [
+"""
+school = "春田花花幼儿园"
+name = "麦兜"
+""",
+"""
+money = 1000
+height = 1.82
+is_success = True
+""",
+"""
+games = ["王者", "吃鸡", "原神", "星铁"]
+role = {
+    "name": "雷电将军",
+    "sex": "女",
+}
+"""
+]
+nonInteractive = true
 
 [[python]]
 title = "成功"

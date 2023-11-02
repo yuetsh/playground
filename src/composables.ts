@@ -73,7 +73,15 @@ function checkAnswer() {
     return
   }
   const userAnswer = inputs.value.filter((it) => it !== "")
-  status.success = userAnswer.toString() === lesson.answer.toString()
+  for (let i = 0; i < userAnswer.length; i++) {
+    if (Array.isArray(lesson.answer[i])) {
+      const answers = lesson.answer[i] as string[]
+      status.success = answers.some((a) => userAnswer[i] === a)
+    } else {
+      status.success = userAnswer[i] == lesson.answer[i]
+    }
+    if (!status.success) break
+  }
 }
 
 function updateStorage(current: number) {

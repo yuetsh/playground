@@ -4,7 +4,7 @@
       <n-space vertical align="start" v-if="step.current !== 0">
         <n-button secondary @click="prev">上一个</n-button>
         <n-tag class="tag" size="small" :bordered="false">
-          {{ isDesktop ? "方向键左键" : "向右滑动" }}
+          {{ isDesktop ? "SHIFT+←" : "向右滑动" }}
         </n-tag>
       </n-space>
     </div>
@@ -22,7 +22,7 @@
         </n-button>
       </n-space>
       <n-tag class="tag" size="small" :bordered="false">
-        {{ isDesktop ? "方向键右键" : "向左滑动" }}
+        {{ isDesktop ? "SHIFT+→" : "向左滑动" }}
       </n-tag>
     </n-space>
   </n-space>
@@ -37,16 +37,16 @@ const props = defineProps<{
   count: number
 }>()
 
-const { left, right } = useMagicKeys()
+const { shift_left, shift_right } = useMagicKeys()
 const { width } = useWindowSize()
 
 const isDesktop = computed(() => width.value > 800)
 
-watch(right, (v) => {
+watch(shift_right, (v) => {
   if (v) next(props.count)
 })
 
-watch(left, (v) => {
+watch(shift_left, (v) => {
   if (v) prev()
 })
 </script>

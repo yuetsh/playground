@@ -68,7 +68,12 @@ watchEffect(() => {
     let j = 0
     lesson.blank.forEach((it, i) => {
       if (it.match(RE)) {
-        inputs.value[i] = lesson.answer![j++]
+        const a = lesson.answer[j++]
+        if (Array.isArray(a)) {
+          inputs.value[i] = a[0]
+        } else {
+          inputs.value[i] = a
+        }
       }
     })
   }
