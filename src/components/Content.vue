@@ -16,7 +16,7 @@
         <span v-if="item.match(RE)">
           <n-input
             placeholder=""
-            :style="{ width: 40 * item.length + 'px' }"
+            :style="{ width: 45 * item.length + 'px' }"
             v-model:value="inputs[index]"
           />
         </span>

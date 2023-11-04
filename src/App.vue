@@ -5,6 +5,7 @@
     :date-locale="dateZhCN"
     :hljs="hljs"
     :theme="darkTheme"
+    :theme-overrides="themeOverrides"
   >
     <n-layout position="absolute" ref="wrap">
       <n-layout-content>
@@ -21,6 +22,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch, watchEffect } from "vue"
 import { zhCN, dateZhCN, darkTheme } from "naive-ui"
+import type { GlobalThemeOverrides } from "naive-ui"
 import { useSwipe } from "@vueuse/core"
 import Header from "./components/Header.vue"
 import Content from "./components/Content.vue"
@@ -37,6 +39,21 @@ import python from "highlight.js/lib/languages/python"
 
 hljs.registerLanguage("python", python)
 // hljs.registerLanguage("c", c)
+
+const themeOverrides: GlobalThemeOverrides = {
+  common: {
+    fontSize: "16px",
+  },
+  Card: {
+    titleFontSizeMedium: "20px",
+  },
+  Input: {
+    fontSizeMedium: "16x",
+  },
+  Code: {
+    fontSize: "16px",
+  },
+}
 
 const wrap = ref(null)
 const { direction } = useSwipe(wrap)
@@ -92,7 +109,7 @@ watch(direction, () => {
 <style scoped>
 .container {
   box-sizing: border-box;
-  width: 50vw;
+  width: 60vw;
   max-width: 800px;
   padding: 0 16px 16px;
   margin: 0 auto;
