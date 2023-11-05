@@ -1,5 +1,5 @@
 import { computed, reactive, ref } from "vue"
-import { Lesson } from "./utils/types"
+import { Lesson, Type } from "./utils/types"
 import { KEY_FINISHED, KEY_STEP } from "./utils/constants"
 import { storage } from "./utils/storage"
 // @ts-ignore
@@ -16,12 +16,14 @@ export const lesson = reactive<Lesson>({
   answer: [],
   nonInteractive: false,
   code: [],
+  type: Type.blank,
 })
 export const step = reactive({
   current: 0,
   last: 0,
 })
 export const inputs = ref<string[]>([])
+export const chooses = ref()
 export const contents = computed(() =>
   lesson.content.split("\n").filter((it) => it !== ""),
 )
@@ -72,15 +74,34 @@ function checkAnswer() {
     status.success = true
     return
   }
-  const userAnswer = inputs.value.filter((it) => it !== "")
-  for (let i = 0; i < userAnswer.length; i++) {
-    if (Array.isArray(lesson.answer[i])) {
-      const answers = lesson.answer[i] as string[]
-      status.success = answers.some((a) => userAnswer[i] === a)
-    } else {
-      status.success = userAnswer[i] == lesson.answer[i]
+  // 填空题
+  if (lesson.type === Type.blank) {
+    const userAnswer = inputs.value.filter((it) => it !== "")
+    for (let i = 0; i < userAnswer.length; i++) {
+      if (Array.isArray(lesson.answer[i])) {
+        const answers = lesson.answer[i] as string[]
+        status.success = answers.some((a) => userAnswer[i] === a)
+      } else {
+        status.success = userAnswer[i] == lesson.answer[i]
+      }
+      if (!status.success) break
     }
-    if (!status.success) break
+  } else {
+    // 选择题
+    if (lesson.answer.length === 1) {
+      // 单选题
+      status.success = chooses.value === lesson.answer[0]
+    } else {
+      // 多选题
+      if (lesson.answer.length !== chooses.value.length) {
+        status.success = false
+        return
+      }
+      const ans = chooses.value
+        .map((c: string) => lesson.blank.find((b) => c === b))
+        .sort()
+      status.success = ans.join() === lesson.answer.sort().join()
+    }
   }
 }
 

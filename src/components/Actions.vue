@@ -29,6 +29,7 @@
 </template>
 <script lang="ts" setup>
 import { computed, watch } from "vue"
+import { NTag, NIcon, NButton } from "naive-ui"
 import { useMagicKeys, useWindowSize } from "@vueuse/core"
 import { step, status, next, prev } from "../composables"
 import Lock from "../icons/Lock.vue"

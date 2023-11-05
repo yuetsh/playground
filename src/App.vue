@@ -4,7 +4,6 @@
     :locale="zhCN"
     :date-locale="dateZhCN"
     :hljs="hljs"
-    :theme="darkTheme"
     :theme-overrides="themeOverrides"
   >
     <n-layout position="absolute" ref="wrap">
@@ -21,16 +20,31 @@
 
 <script setup lang="ts">
 import { onMounted, ref, watch, watchEffect } from "vue"
-import { zhCN, dateZhCN, darkTheme } from "naive-ui"
+import {
+  zhCN,
+  dateZhCN,
+  NConfigProvider,
+  NLayout,
+  NLayoutContent,
+} from "naive-ui"
 import type { GlobalThemeOverrides } from "naive-ui"
 import { useSwipe } from "@vueuse/core"
+import shuffle from "lodash/shuffle"
 import Header from "./components/Header.vue"
 import Content from "./components/Content.vue"
 import Actions from "./components/Actions.vue"
 import { storage } from "./utils/storage"
-import { Step } from "./utils/types"
+import { Step, Type } from "./utils/types"
 import { KEY_FINISHED, KEY_STEP, RE } from "./utils/constants"
-import { step, status, lesson, inputs, next, prev } from "./composables"
+import {
+  step,
+  status,
+  lesson,
+  inputs,
+  next,
+  prev,
+  chooses,
+} from "./composables"
 import lessons from "./data/python.json"
 
 import hljs from "highlight.js/lib/core"
@@ -70,29 +84,68 @@ watchEffect(() => {
   const lessonData = lessons[step.current]
   lesson.title = lessonData.title
   lesson.content = lessonData.content
-  lesson.blank = lessonData.blank || []
-  lesson.answer = lessonData.answer || []
   lesson.nonInteractive = !!lessonData.nonInteractive
-  lesson.code = lessonData.code || []
+  lesson.code = lessonData.code ?? []
+  lesson.type = lessonData.type ?? Type.blank
+  lesson.blank = lessonData.blank ?? []
+  lesson.answer = lessonData.answer ?? []
+
+  if (lesson.type === Type.options) {
+    // 把答案提取
+    if (lesson.answer.length === 1) {
+      // 单选题
+      const alpha = lesson.answer[0] as string
+      const index = alpha.toLowerCase().charCodeAt(0) - "a".charCodeAt(0)
+      lesson.answer = [lesson.blank[index]]
+    } else {
+      const ans: string[] = []
+      lesson.answer.forEach((a) => {
+        const alpha = a as string
+        const index = alpha.toLowerCase().charCodeAt(0) - "a".charCodeAt(0)
+        ans.push(lesson.blank[index])
+      })
+      lesson.answer = ans
+    }
+    // 把选项打乱
+    lesson.blank = shuffle(lesson.blank)
+  }
 
   // 重置用户输入框
   inputs.value = new Array(lesson.blank.length).fill("")
 
-  // 显示答案
-  // 刚开始
+  // 重置选择题的选择
+  chooses.value = lesson.answer.length === 1 ? "" : []
+
+  // 刚开始没有做题的时候不用显示答案
   if (step.last === 0) return
+  // 填充填空题的答案
   if (status.success || storage.get(KEY_FINISHED)) {
-    let j = 0
-    lesson.blank.forEach((it, i) => {
-      if (it.match(RE)) {
-        const a = lesson.answer[j++]
-        if (Array.isArray(a)) {
-          inputs.value[i] = a[0]
-        } else {
-          inputs.value[i] = a
+    if (lesson.type === Type.blank) {
+      let j = 0
+      lesson.blank.forEach((it, i) => {
+        if (it.match(RE)) {
+          const a = lesson.answer[j++]
+          if (Array.isArray(a)) {
+            inputs.value[i] = a[0]
+          } else {
+            inputs.value[i] = a
+          }
         }
+      })
+    }
+    if (lesson.type === Type.options) {
+      if (lesson.answer.length === 1) {
+        // 单选题
+        const index = lesson.blank.findIndex((b) => lesson.answer[0] === b)
+        chooses.value = lesson.blank[index]
+      } else {
+        // 多选题
+        lesson.answer.forEach((a) => {
+          const index = lesson.blank.findIndex((b) => a === b)
+          chooses.value.push(lesson.blank[index])
+        })
       }
-    })
+    }
   }
 })
 

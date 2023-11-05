@@ -17,7 +17,7 @@
   </n-space>
 </template>
 <script lang="ts" setup>
-import { NIcon } from "naive-ui"
+import { NIcon, NDropdown, NButton } from "naive-ui"
 import type { DropdownOption } from "naive-ui"
 import Menu from "../icons/Menu.vue"
 import Cat from "../icons/Cat.vue"

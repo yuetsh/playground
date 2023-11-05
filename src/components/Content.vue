@@ -12,7 +12,11 @@
       <n-code language="python" :code="item" show-line-numbers />
     </n-card>
     <n-card v-else>
-      <span v-for="(item, index) in lesson.blank" :key="index">
+      <span
+        v-if="lesson.type === Type.blank"
+        v-for="(item, index) in lesson.blank"
+        :key="index"
+      >
         <span v-if="item.match(RE)">
           <n-input
             placeholder=""
@@ -30,12 +34,38 @@
           :code="item"
         />
       </span>
+      <Component
+        v-else
+        :is="lesson.answer.length === 1 ? NRadioGroup : NCheckboxGroup"
+        v-model:value="chooses"
+      >
+        <n-space vertical>
+          <Component
+            :is="lesson.answer.length === 1 ? NRadio : NCheckbox"
+            v-for="(item, index) in lesson.blank"
+            :key="index"
+            :value="item"
+            :label="item"
+          />
+        </n-space>
+      </Component>
     </n-card>
   </n-space>
 </template>
 <script lang="ts" setup>
-import { inputs, lesson, contents } from "../composables"
+import { Type } from "../utils/types"
+import { inputs, chooses, lesson, contents } from "../composables"
 import { RE } from "../utils/constants"
+import {
+  NCheckboxGroup,
+  NRadioGroup,
+  NCheckbox,
+  NRadio,
+  NP,
+  NCard,
+  NCode,
+  NInput,
+} from "naive-ui"
 </script>
 <style scoped>
 .code {

@@ -1,37 +1,10 @@
 import { createApp } from "vue"
-import {
-  create,
-  NButton,
-  NInput,
-  NSpace,
-  NCode,
-  NCard,
-  NIcon,
-  NDropdown,
-  NConfigProvider,
-  NLayout,
-  NLayoutContent,
-  NP,
-  NTag
-} from "naive-ui"
+import { create, NSpace } from "naive-ui"
 import "normalize.css"
 import App from "./App.vue"
 
 const naive = create({
-  components: [
-    NButton,
-    NInput,
-    NSpace,
-    NCode,
-    NCard,
-    NIcon,
-    NDropdown,
-    NConfigProvider,
-    NLayout,
-    NLayoutContent,
-    NP,
-    NTag
-  ],
+  components: [NSpace],
 })
 
 const app = createApp(App)
