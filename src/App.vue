@@ -67,6 +67,12 @@ const themeOverrides: GlobalThemeOverrides = {
   Code: {
     fontSize: "16px",
   },
+  Checkbox: {
+    fontSizeMedium: "16px",
+  },
+  Radio: {
+    fontSizeMedium: "16px",
+  },
 }
 
 const wrap = ref(null)

@@ -1,32 +1,4 @@
 [[python]]
-title = "x"
-content = """
-做个多选题吧，答案是船长！
-"""
-type = "选择"
-blank = [
-    "幽鬼",
-    "猛犸",
-    "影魔",
-    "船长"
-]
-answer = ["D", "A"]
-
-[[python]]
-title = "x"
-content = """
-做个单选题吧，答案是船长！
-"""
-type = "选择"
-blank = [
-    "幽鬼",
-    "猛犸",
-    "影魔",
-    "船长"
-]
-answer = ["D"]
-
-[[python]]
 title = "热身运动"
 content = """
 从这里开始，我们测试一下 Python 编程的基本格式。
@@ -44,7 +16,7 @@ blank = ['$$', '"黄岩一职"', '$']
 answer = ['print(', ')']
 
 [[python]]
-title = "输出语句 —— 文字"
+title = "输出语句 print()"
 content = """
 同样这题考察的也是输出语句，请输出Python 编程入门，注意引号，注意空格。
 （格式必须严格按照提示，不然就算对，也通过不了！）
@@ -53,15 +25,23 @@ blank = ['print(', '$$$$', ')']
 answer = [['"Python 编程入门"', "'Python 编程入门'"]]
 
 [[python]]
-title = "输出语句 —— 数字计算"
+title = "计算"
 content = """
 让 Python 来计算 1+1 的值，不需要你自己计算。
 """
 blank = ['print(', '$$', ')']
-answer = ['1+1']
+answer = ['1+1', '1 + 1']
 
 [[python]]
-title = "输出语句 —— 输出多个值"
+title = "求余"
+content = """
+计算 5 除以 3 的余数，有什么符号表示求余捏？
+"""
+blank = ['print(', '$$', ')']
+answer = ['5%3', '5 % 3']
+
+[[python]]
+title = "用逗号分隔多个输出值"
 content = """
 在 print() 中可以输出多个内容，之间用逗号隔开。
 下面有三个空需要填写。
@@ -71,7 +51,7 @@ blank = ['print(', '$$', '$', '$$$', ')']
 answer = [['"尼尔"', "'尼尔'"], [',', ', '], ['"机械纪元"', "'机械纪元'"]]
 
 [[python]]
-title = "输出语句 —— 高级用法 —— 自定义分隔符号"
+title = "输出语句的自定义分隔符号"
 content = """
 使用 sep="" 可以用于取消多个输出之间的空格。
 在引号里面可以写入你想要的分隔符，比如 sep="-"，表示用短横线来分隔。
@@ -94,15 +74,18 @@ content = """
 变量是编程中的重要概念，方便我们编写可读性很高的代码。
 变量有很多类型，包括文字、数字、真假、列表、字典等。
 """
-code = ["""
+code = [
+"""
 school = "春田花花幼儿园"
 name = "麦兜"
-""", """
+""",
+"""
 money = 1000
 height = 1.82
 is_success = True
-""", """
-games = ["王者", "吃鸡", "原神", "星铁"]
+""",
+"""
+games = ["塞尔达传说", "重力异想世界", "合金装备", "最终幻想", "风之旅人"]
 role = {
     "name": "雷电将军",
     "sex": "女",
@@ -111,8 +94,51 @@ role = {
 nonInteractive = true
 
 [[python]]
-title = "成功"
+title = "变量的命令规则 1"
 content = """
-恭喜你，完成测试！
+（多选题）以下哪些是【合法】的变量名
+"""
+type = "选择"
+blank = [
+    "1a",
+    "A1",
+    "a1",
+    "!a"
+]
+answer = ["b", "c"]
+
+[[python]]
+title = "变量的命令规则 2"
+content = """
+（多选题）以下哪些是【合法】的变量名
+"""
+type = "选择"
+blank = [
+    "_name",
+    "-name",
+    "name-",
+    "name_"
+]
+answer = ["a", "d"]
+
+
+[[python]]
+title = "变量的命令规则 3"
+content = """
+（多选题）以下哪些是【违法】的变量名
+"""
+type = "选择"
+blank = [
+    "@game",
+    "2game",
+    "#game",
+    "!game"
+]
+answer = ["a", "b", "c", "d"]
+
+[[python]]
+title = "恭喜你"
+content = """
+完成测试，可以帮帮其他同学哦！
 """
 nonInteractive = true

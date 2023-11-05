@@ -2,8 +2,8 @@
   <n-space class="actions" justify="space-between">
     <div>
       <n-space vertical align="start" v-if="step.current !== 0">
-        <n-button secondary @click="prev">上一个</n-button>
-        <n-tag class="tag" size="small" :bordered="false">
+        <n-button secondary size="large" @click="prev">上一个</n-button>
+        <n-tag class="tag" :bordered="false">
           {{ isDesktop ? "SHIFT+←" : "向右滑动" }}
         </n-tag>
       </n-space>
@@ -17,11 +17,11 @@
           color="#d03050"
           class="icon"
         />
-        <n-button secondary @click="() => next(props.count)">
+        <n-button secondary size="large" @click="() => next(props.count)">
           {{ step.current < props.count - 1 ? "下一个" : "全部完成" }}
         </n-button>
       </n-space>
-      <n-tag class="tag" size="small" :bordered="false">
+      <n-tag class="tag" :bordered="false">
         {{ isDesktop ? "SHIFT+→" : "向左滑动" }}
       </n-tag>
     </n-space>
