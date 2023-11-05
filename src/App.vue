@@ -99,7 +99,7 @@ watchEffect(() => {
       lesson.answer = [lesson.blank[index]]
     } else {
       const ans: string[] = []
-      lesson.answer.forEach((a) => {
+      lesson.answer!.forEach((a) => {
         const alpha = a as string
         const index = alpha.toLowerCase().charCodeAt(0) - "a".charCodeAt(0)
         ans.push(lesson.blank[index])
@@ -140,10 +140,12 @@ watchEffect(() => {
         chooses.value = lesson.blank[index]
       } else {
         // 多选题
+        const ans: string[] = []
         lesson.answer.forEach((a) => {
           const index = lesson.blank.findIndex((b) => a === b)
-          chooses.value.push(lesson.blank[index])
+          ans.push(lesson.blank[index])
         })
+        chooses.value = ans
       }
     }
   }
