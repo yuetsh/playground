@@ -12,7 +12,7 @@
     </n-space>
     <n-space align="center">
       <span>{{ step.current + 1 }} / {{ props.count }}</span>
-      <n-button secondary @click="reset">全部重做</n-button>
+      <n-button tertiary @click="reset">全部重做</n-button>
     </n-space>
   </n-space>
 </template>
