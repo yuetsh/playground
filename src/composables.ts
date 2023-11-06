@@ -14,7 +14,7 @@ export const lesson = reactive<Lesson>({
   content: "",
   blank: [],
   answer: [],
-  nonInteractive: false,
+  skip: false,
   code: [],
   type: Type.blank,
 })
@@ -70,7 +70,7 @@ export function next(total: number) {
 }
 
 function checkAnswer() {
-  if (lesson.nonInteractive) {
+  if (lesson.skip) {
     status.success = true
     return
   }

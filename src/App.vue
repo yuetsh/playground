@@ -79,7 +79,7 @@ const wrap = ref(null)
 const { direction } = useSwipe(wrap)
 
 onMounted(() => {
-  status.success = step.current < step.last || !!lesson.nonInteractive
+  status.success = step.current < step.last || !!lesson.skip
 })
 
 watchEffect(() => {
@@ -90,11 +90,12 @@ watchEffect(() => {
   const lessonData = lessons[step.current]
   lesson.title = lessonData.title
   lesson.content = lessonData.content
-  lesson.nonInteractive = !!lessonData.nonInteractive
   lesson.code = lessonData.code ?? []
   lesson.type = lessonData.type ?? Type.blank
   lesson.blank = lessonData.blank ?? []
   lesson.answer = lessonData.answer ?? []
+
+  lesson.skip = lesson.blank.length === 0
 
   if (lesson.type === Type.options) {
     // 把答案提取

@@ -9,7 +9,7 @@ export interface Lesson {
   type: string
   blank: string[]
   answer: string[] | string[][]
-  nonInteractive: boolean
+  skip: boolean
   code: string[]
 }
 

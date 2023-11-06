@@ -5,7 +5,7 @@
       <n-p v-for="item in contents">{{ item }}</n-p>
     </n-card>
     <n-card
-      v-if="lesson.nonInteractive"
+      v-if="lesson.skip"
       v-for="(item, index) in lesson.code"
       :key="index"
     >

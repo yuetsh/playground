@@ -57,13 +57,12 @@ content = """
 在引号里面可以写入你想要的分隔符，比如 sep="-"，表示用短横线来分隔。
 注意逗号和等号！
 """
-nonInteractive = true
 code = ["""print("尼尔", "机械纪元", sep="")"""]
 
 [[python]]
-title = "输出语句：高级用法 —— 自定义分隔符号"
+title = "练习"
 content = """
-用下划线进行分割。
+下列的输出的文字，用【下划线】分隔。
 """
 blank = ['print("尼尔", "机械纪元", "自动人形"', '$$$', ')']
 answer = [[', sep="_"', ',sep="_"', ",sep='_'", ", sep='_'"]]
@@ -91,7 +90,19 @@ role = {
     "sex": "女",
 }
 """]
-nonInteractive = true
+
+[[python]]
+title = "变量的命名规则"
+content = """
+① 变量名只能用"_"，数字，字母组成，不可以是空格或者特殊字符【#、?、<、.、,、$、*、~、！、@、:、&、+、-、%、>、=、/等】
+② 不能以数字开头
+③ 变量名中不能有中横线，初学者很容易错
+④ 保留字【比如 print、input 这类已经被 Python 占用的】不能被使用
+⑤ 变量名区分大小写
+
+* Python 中的保留字：
+【“and”，"as"，"assert"，"break"，"class"，"continue"，"def"，"del"，"elif"，"else"，"except"，"exec"，"finaily"，"for"，"from"，"global"，"if"，"import"，"in"，"is"，"lambda"，"not"，"or"，"pass"，"print"，"raise"，"return"，"try"，"while"，"with"，"yield"】
+"""
 
 [[python]]
 title = "变量的命令规则 1"
@@ -100,27 +111,31 @@ content = """
 """
 type = "选择"
 blank = [
-    "1a",
-    "A1",
-    "a1",
-    "!a"
+    "not",
+    "printIt",
+    "notTrue",
+    "print"
 ]
 answer = ["b", "c"]
 
 [[python]]
 title = "变量的命令规则 2"
 content = """
-（多选题）以下哪些是【合法】的变量名
+（多选题）以下哪些是【合法】的变量名，有点难度，要看仔细！
 """
 type = "选择"
 blank = [
     "_name",
-    "-name",
     "name-",
-    "name_"
+    "na-me",
+    "n_ame",
+    "-name",
+    "~game",
+    "g.a.m.e.",
+    "ga+me",
+    "*game*",
 ]
 answer = ["a", "d"]
-
 
 [[python]]
 title = "变量的命令规则 3"
@@ -129,16 +144,18 @@ content = """
 """
 type = "选择"
 blank = [
-    "@game",
-    "2game",
+    "g@m1",
+    "ga/e",
     "#game",
-    "!game"
+    "game!",
+    "break",
+    "G_a_m_e",
+    "gAME_"
 ]
-answer = ["a", "b", "c", "d"]
+answer = ["a", "b", "c", "d", "e"]
 
 [[python]]
 title = "恭喜你"
 content = """
 完成测试，可以帮帮其他同学哦！
 """
-nonInteractive = true
