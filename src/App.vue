@@ -6,7 +6,7 @@
     :hljs="hljs"
     :theme-overrides="themeOverrides"
   >
-    <n-layout position="absolute" ref="wrap">
+    <n-layout position="absolute">
       <n-layout-content>
         <n-space size="large" vertical class="container">
           <Header :count="lessons.length" />
@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch, watchEffect } from "vue"
+import { onMounted, watchEffect } from "vue"
 import {
   zhCN,
   dateZhCN,
@@ -28,7 +28,6 @@ import {
   NLayoutContent,
 } from "naive-ui"
 import type { GlobalThemeOverrides } from "naive-ui"
-import { useSwipe } from "@vueuse/core"
 import shuffle from "lodash/shuffle"
 import Header from "./components/Header.vue"
 import Content from "./components/Content.vue"
@@ -36,15 +35,7 @@ import Actions from "./components/Actions.vue"
 import { storage } from "./utils/storage"
 import { Step, Type } from "./utils/types"
 import { KEY_FINISHED, KEY_STEP, RE } from "./utils/constants"
-import {
-  step,
-  status,
-  lesson,
-  inputs,
-  next,
-  prev,
-  chooses,
-} from "./composables"
+import { step, status, lesson, inputs, chooses } from "./composables"
 import lessons from "./data/python.json"
 
 import hljs from "highlight.js/lib/core"
@@ -74,9 +65,6 @@ const themeOverrides: GlobalThemeOverrides = {
     fontSizeMedium: "16px",
   },
 }
-
-const wrap = ref(null)
-const { direction } = useSwipe(wrap)
 
 onMounted(() => {
   status.success = step.current < step.last || !!lesson.skip
@@ -155,15 +143,6 @@ watchEffect(() => {
         chooses.value = ans
       }
     }
-  }
-})
-
-watch(direction, () => {
-  if (direction.value === "left") {
-    next(lessons.length)
-  }
-  if (direction.value === "right") {
-    prev()
   }
 })
 </script>
