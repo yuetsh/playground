@@ -5,6 +5,7 @@
     :date-locale="dateZhCN"
     :hljs="hljs"
     :theme-overrides="themeOverrides"
+    :theme="isDark ? darkTheme : lightTheme"
   >
     <n-layout position="absolute">
       <n-layout-content>
@@ -26,8 +27,11 @@ import {
   NConfigProvider,
   NLayout,
   NLayoutContent,
+  darkTheme,
+  lightTheme,
 } from "naive-ui"
 import type { GlobalThemeOverrides } from "naive-ui"
+import { usePreferredDark } from "@vueuse/core"
 import shuffle from "lodash/shuffle"
 import Header from "./components/Header.vue"
 import Content from "./components/Content.vue"
@@ -65,6 +69,8 @@ const themeOverrides: GlobalThemeOverrides = {
     fontSizeMedium: "16px",
   },
 }
+
+const isDark = usePreferredDark()
 
 onMounted(() => {
   status.success = step.current < step.last || !!lesson.skip
