@@ -2,7 +2,11 @@
   <n-space size="large" vertical>
     <n-card>
       <template #header>{{ lesson.title }}</template>
-      <n-p v-for="item in contents">{{ item }}</n-p>
+      <n-p
+        v-for="(item, index) in contents"
+        :key="index"
+        v-html="marked.parseInline(item)"
+      />
     </n-card>
     <n-card
       v-if="lesson.skip"
@@ -53,6 +57,7 @@
   </n-space>
 </template>
 <script lang="ts" setup>
+import { marked } from "marked"
 import { Type } from "../utils/types"
 import { inputs, chooses, lesson, contents } from "../composables"
 import { RE } from "../utils/constants"
@@ -61,10 +66,10 @@ import {
   NRadioGroup,
   NCheckbox,
   NRadio,
-  NP,
   NCard,
   NCode,
   NInput,
+  NP,
 } from "naive-ui"
 </script>
 <style scoped>

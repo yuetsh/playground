@@ -9,6 +9,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
+          md: ["marked"],
           hljs: ["highlight.js"],
           confetti: ["canvas-confetti"],
           ui: ["naive-ui"],
