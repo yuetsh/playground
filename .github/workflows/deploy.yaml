@@ -18,11 +18,11 @@ jobs:
       - run: npm install
       - run: CI=false npm run build
 
-      - uses: easingthemes/ssh-deploy@main
+      - uses: easingthemes/ssh-deploy@v2.2.11
         env:
           SSH_PRIVATE_KEY: ${{ secrets.KEY }}
           REMOTE_HOST: ${{ secrets.HOST }}
           ARGS: "-avzr --delete"
           SOURCE: dist/
           REMOTE_USER: root
-          TARGET: ${{ secrets.PATH }}
+          TARGET: /root/Playground
