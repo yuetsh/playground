@@ -2,13 +2,23 @@
   <n-space size="large" vertical>
     <n-card>
       <template #header>
-        <n-space>
+        <n-space align="center">
           {{ lesson.title }}
-          <!-- <n-button quaternary circle>
-            <template #icon>
-              <n-icon :component="Question" size="20" />
+          <n-popover
+            v-if="lesson.hint"
+            :show-arrow="false"
+            trigger="hover"
+            placement="right"
+          >
+            <template #trigger>
+              <n-button quaternary circle>
+                <template #icon>
+                  <n-icon :component="Help" size="20" />
+                </template>
+              </n-button>
             </template>
-          </n-button> -->
+            <div v-for="(item, index) in hints" :key="index">{{ item }}</div>
+          </n-popover>
         </n-space>
       </template>
       <n-p
@@ -68,7 +78,7 @@
 <script lang="ts" setup>
 import { marked } from "marked"
 import { Type } from "../utils/types"
-import { inputs, chooses, lesson, contents } from "../composables"
+import { inputs, chooses, lesson, contents, hints } from "../composables"
 import { RE } from "../utils/constants"
 import {
   NCheckboxGroup,
@@ -81,8 +91,9 @@ import {
   NP,
   NIcon,
   NButton,
+  NPopover,
 } from "naive-ui"
-import Question from "../icons/Question.vue"
+import Help from "../icons/Help.vue"
 </script>
 <style scoped>
 .code {

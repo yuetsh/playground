@@ -88,6 +88,7 @@ watchEffect(() => {
   lesson.type = lessonData.type ?? Type.blank
   lesson.blank = lessonData.blank ?? []
   lesson.answer = lessonData.answer ?? []
+  lesson.hint = lessonData.hint ?? ""
 
   lesson.skip = lesson.blank.length === 0
 

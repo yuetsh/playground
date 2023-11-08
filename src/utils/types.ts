@@ -11,6 +11,7 @@ export interface Lesson {
   answer: string[] | string[][]
   skip: boolean
   code: string[]
+  hint: string
 }
 
 export enum Type {

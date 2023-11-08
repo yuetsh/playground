@@ -17,6 +17,7 @@ export const lesson = reactive<Lesson>({
   skip: false,
   code: [],
   type: Type.blank,
+  hint: "",
 })
 export const step = reactive({
   current: 0,
@@ -26,6 +27,9 @@ export const inputs = ref<string[]>([])
 export const chooses = ref()
 export const contents = computed(() =>
   lesson.content.split("\n").filter((it) => it !== ""),
+)
+export const hints = computed(() =>
+  lesson.hint.split("\n").filter((it) => it !== ""),
 )
 
 export function reset() {

@@ -7,7 +7,7 @@ content = """
 blank = ['$']
 answer = ['ok']
 hint = """
-你没事吧~
+你没事吧~你没事吧~你没事吧~【流汗黄豆】
 """
 
 [[python]]
@@ -17,6 +17,9 @@ content = """
 """
 blank = ['$$', '"黄岩一职"', '$']
 answer = ['print(', ')']
+hint = """
+这题要是再不会，我可要攻击你了！
+"""
 
 [[python]]
 title = "输出语句 print()"
@@ -26,6 +29,9 @@ content = """
 """
 blank = ['print(', '$$$$', ')']
 answer = [['"Python 编程入门"', "'Python 编程入门'"]]
+hint = """
+眼睛不需要可以捐给有需要的人！
+"""
 
 [[python]]
 title = "数值计算"
@@ -36,6 +42,9 @@ content = """
 """
 blank = ['print(', '$$', ')', '\n', 'print(', '$$', ')']
 answer = [['1+1', '1 + 1'], ['10//2', '10 // 2']]
+hint = """
+不要想复杂，直接复制粘贴
+"""
 
 [[python]]
 title = "求余"
@@ -44,6 +53,9 @@ content = """
 """
 blank = ['print(', '$$', ')']
 answer = ['5%3', '5 % 3']
+hint = """
+提示：PPT 上有答案
+"""
 
 [[python]]
 title = "用逗号分隔多个输出值"
@@ -76,6 +88,9 @@ content = """
 """
 blank = ['print("尼尔", "机械纪元", "自动人形"', '$$$', ')']
 answer = [[', sep="_"', ',sep="_"', ",sep='_'", ", sep='_'"]]
+hint = """
+提示：下划线 _ 就是 SHIFT + 减号
+"""
 
 [[python]]
 title = "变量"
@@ -134,6 +149,9 @@ blank = [
     "print"
 ]
 answer = ["b", "c"]
+hint = """
+请回到上一页看看保留字
+"""
 
 [[python]]
 title = "变量的命令规则 2"
@@ -153,6 +171,9 @@ blank = [
     "*game*",
 ]
 answer = ["a", "d"]
+hint = """
+变量命名有诀窍，请回到上上页看变量命名的第一个规则
+"""
 
 [[python]]
 title = "变量的命令规则 3"
