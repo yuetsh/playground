@@ -1,7 +1,16 @@
 <template>
   <n-space size="large" vertical>
     <n-card>
-      <template #header>{{ lesson.title }}</template>
+      <template #header>
+        <n-space>
+          {{ lesson.title }}
+          <!-- <n-button quaternary circle>
+            <template #icon>
+              <n-icon :component="Question" size="20" />
+            </template>
+          </n-button> -->
+        </n-space>
+      </template>
       <n-p
         v-for="(item, index) in contents"
         :key="index"
@@ -70,7 +79,10 @@ import {
   NCode,
   NInput,
   NP,
+  NIcon,
+  NButton,
 } from "naive-ui"
+import Question from "../icons/Question.vue"
 </script>
 <style scoped>
 .code {
