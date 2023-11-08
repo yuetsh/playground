@@ -12,7 +12,6 @@ export default defineConfig({
           md: ["marked"],
           hljs: ["highlight.js"],
           confetti: ["canvas-confetti"],
-          ui: ["naive-ui"],
         },
       },
     },
