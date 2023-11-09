@@ -1,5 +1,5 @@
 import { computed, reactive, ref } from "vue"
-import { useWindowSize } from "@vueuse/core"
+import { promiseTimeout, useWindowSize } from "@vueuse/core"
 import { Lesson, Type } from "./utils/types"
 import { KEY_FINISHED, KEY_STEP } from "./utils/constants"
 import { storage } from "./utils/storage"
@@ -11,6 +11,7 @@ export const isDesktop = computed(() => width.value > 800)
 export const status = reactive({
   success: false,
   error: false,
+  errorLoading: false,
 })
 export const lesson = reactive<Lesson>({
   title: "",
@@ -47,15 +48,18 @@ export function prev() {
   step.current = prevStep
   status.success = step.last > prevStep
   status.error = false
+  status.errorLoading = false
   updateStorage(prevStep)
 }
 
-export function next(total: number) {
+export async function next(total: number) {
   checkAnswer()
   if (!status.success) {
     status.error = true
-
     storage.remove(KEY_FINISHED)
+    status.errorLoading = true
+    await promiseTimeout(1000)
+    status.errorLoading = false
     return
   }
   // 下一步
@@ -64,6 +68,8 @@ export function next(total: number) {
     step.current = nextStep
     status.success = step.last > nextStep
     status.error = false
+    status.errorLoading = false
+    status.errorLoading = false
     updateStorage(nextStep)
   } else {
     // 最后一步

@@ -13,9 +13,9 @@
         <n-icon
           v-if="status.error"
           :component="Lock"
-          size="20"
+          size="26"
           color="#d03050"
-          class="icon"
+          :class="status.errorLoading && 'animate__animated animate__swing'"
         />
         <n-button
           tertiary
@@ -53,10 +53,6 @@ watch(shift_left, (v) => {
 </script>
 
 <style scoped>
-.icon {
-  transform: translateY(3px);
-}
-
 .actions {
   margin-top: 16px;
 }
