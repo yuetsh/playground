@@ -31,10 +31,10 @@
   </n-space>
 </template>
 <script lang="ts" setup>
-import { computed, watch } from "vue"
+import { watch } from "vue"
 import { NTag, NIcon, NButton } from "naive-ui"
-import { useMagicKeys, useWindowSize } from "@vueuse/core"
-import { step, status, next, prev } from "../composables"
+import { useMagicKeys } from "@vueuse/core"
+import { step, status, next, prev, isDesktop } from "../composables"
 import Lock from "../icons/Lock.vue"
 
 const props = defineProps<{
@@ -42,9 +42,6 @@ const props = defineProps<{
 }>()
 
 const { shift_left, shift_right } = useMagicKeys()
-const { width } = useWindowSize()
-
-const isDesktop = computed(() => width.value > 800)
 
 watch(shift_right, (v) => {
   if (v) next(props.count)

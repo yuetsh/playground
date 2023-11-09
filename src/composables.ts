@@ -1,10 +1,13 @@
 import { computed, reactive, ref } from "vue"
+import { useWindowSize } from "@vueuse/core"
 import { Lesson, Type } from "./utils/types"
 import { KEY_FINISHED, KEY_STEP } from "./utils/constants"
 import { storage } from "./utils/storage"
 // @ts-ignore
 import confetti from "canvas-confetti"
 
+const { width } = useWindowSize()
+export const isDesktop = computed(() => width.value > 800)
 export const status = reactive({
   success: false,
   error: false,
@@ -51,9 +54,11 @@ export function next(total: number) {
   checkAnswer()
   if (!status.success) {
     status.error = true
+
     storage.remove(KEY_FINISHED)
     return
   }
+  // 下一步
   if (step.current < total - 1) {
     const nextStep = step.current + 1
     step.current = nextStep
@@ -61,6 +66,7 @@ export function next(total: number) {
     status.error = false
     updateStorage(nextStep)
   } else {
+    // 最后一步
     if (storage.get(KEY_FINISHED)) return
     confetti({
       particleCount: 400,
