@@ -12,7 +12,16 @@
     </n-space>
     <n-space align="center">
       <span>{{ step.current + 1 }} / {{ props.count }}</span>
-      <n-button tertiary @click="reset">再次挑战</n-button>
+      <n-button
+        :class="
+          step.current === props.count - 1 &&
+          'animate__animated animate__headShake animate__infinite'
+        "
+        tertiary
+        @click="reset"
+      >
+        再次挑战
+      </n-button>
     </n-space>
   </n-space>
 </template>

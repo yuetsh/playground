@@ -18,6 +18,7 @@
           :class="status.errorLoading && 'animate__animated animate__swing'"
         />
         <n-button
+          :disabled="isPending"
           tertiary
           type="success"
           size="large"
@@ -31,10 +32,18 @@
   </n-space>
 </template>
 <script lang="ts" setup>
-import { watch } from "vue"
+import { onMounted, watch } from "vue"
 import { NTag, NIcon, NButton } from "naive-ui"
 import { useMagicKeys } from "@vueuse/core"
-import { step, status, next, prev, isDesktop } from "../composables"
+import {
+  step,
+  status,
+  next,
+  prev,
+  stop,
+  isDesktop,
+  isPending,
+} from "../composables"
 import Lock from "../icons/Lock.vue"
 
 const props = defineProps<{
@@ -42,6 +51,8 @@ const props = defineProps<{
 }>()
 
 const { shift_left, shift_right } = useMagicKeys()
+
+onMounted(stop)
 
 watch(shift_right, (v) => {
   if (v) next(props.count)

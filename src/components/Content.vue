@@ -10,7 +10,11 @@
             :placement="isDesktop ? 'right' : 'bottom'"
           >
             <template #trigger>
-              <n-button quaternary circle>
+              <n-button
+                quaternary
+                circle
+                class="animate__animated animate__heartBeat animate__infinite"
+              >
                 <template #icon>
                   <n-icon :component="Help" size="20" />
                 </template>
@@ -26,14 +30,10 @@
         v-html="marked.parseInline(item)"
       />
     </n-card>
-    <n-card
-      v-if="lesson.skip"
-      v-for="(item, index) in lesson.code"
-      :key="index"
-    >
+    <n-card v-for="(item, index) in lesson.code" :key="index">
       <n-code language="python" :code="item" show-line-numbers />
     </n-card>
-    <n-card v-else>
+    <n-card v-if="!lesson.skip">
       <span
         v-if="lesson.type === Type.blank"
         v-for="(item, index) in lesson.blank"

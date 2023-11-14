@@ -1,5 +1,5 @@
 import { computed, reactive, ref } from "vue"
-import { promiseTimeout, useWindowSize } from "@vueuse/core"
+import { promiseTimeout, useWindowSize, useTimeout } from "@vueuse/core"
 import { Lesson, Type } from "./utils/types"
 import { KEY_FINISHED, KEY_STEP } from "./utils/constants"
 import { storage } from "./utils/storage"
@@ -7,6 +7,7 @@ import { storage } from "./utils/storage"
 import confetti from "canvas-confetti"
 
 const { width } = useWindowSize()
+export const { isPending, start, stop } = useTimeout(3000, { controls: true })
 export const isDesktop = computed(() => width.value > 800)
 export const status = reactive({
   success: false,
@@ -73,15 +74,15 @@ export async function next(total: number) {
     updateStorage(nextStep)
   } else {
     // 最后一步
-    if (storage.get(KEY_FINISHED)) return
+    start() // 禁用按钮，防止多次调用 confetti
+    storage.set(KEY_FINISHED, true)
     confetti({
-      particleCount: 400,
+      particleCount: 300,
       startVelocity: 30,
       gravity: 0.5,
       spread: 350,
       origin: { x: 0.5, y: 0.4 },
     })
-    storage.set(KEY_FINISHED, true)
   }
 }
 

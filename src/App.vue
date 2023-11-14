@@ -73,7 +73,7 @@ const themeOverrides: GlobalThemeOverrides = {
 const isDark = usePreferredDark()
 
 onMounted(() => {
-  status.success = step.current < step.last || !!lesson.skip
+  status.success = step.current < step.last || lesson.skip
 })
 
 watchEffect(() => {
@@ -89,7 +89,6 @@ watchEffect(() => {
   lesson.blank = lessonData.blank ?? []
   lesson.answer = lessonData.answer ?? []
   lesson.hint = lessonData.hint ?? ""
-
   lesson.skip = lesson.blank.length === 0
 
   if (lesson.type === Type.options) {
