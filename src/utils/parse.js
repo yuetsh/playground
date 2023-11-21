@@ -3,7 +3,7 @@ import fs from "fs/promises"
 import path from "path"
 import process from "process"
 
-const language = process.argv.slice(2)[0] || "python"
+const language = "python"
 
 async function parse() {
   const content = await fs.readFile(path.resolve(`src/data/${language}.toml`), {
@@ -12,7 +12,7 @@ async function parse() {
   const data = toml.parse(content)
   fs.writeFile(
     path.resolve(`src/data/${language}.json`),
-    JSON.stringify(data[language]),
+    JSON.stringify(data),
   )
 }
 

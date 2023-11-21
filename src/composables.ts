@@ -1,6 +1,6 @@
 import { computed, reactive, ref } from "vue"
 import { promiseTimeout, useWindowSize, useTimeout } from "@vueuse/core"
-import { Lesson, Type } from "./utils/types"
+import { Lesson, Level, Step, Type } from "./utils/types"
 import { KEY_FINISHED, KEY_STEP } from "./utils/constants"
 import { storage } from "./utils/storage"
 // @ts-ignore
@@ -24,7 +24,8 @@ export const lesson = reactive<Lesson>({
   type: Type.blank,
   hint: "",
 })
-export const step = reactive({
+export const step = reactive<Step>({
+  level: Level.basic,
   current: 0,
   last: 0,
 })
@@ -38,7 +39,7 @@ export const hints = computed(() =>
 )
 
 export function reset() {
-  storage.set(KEY_STEP, { current: 0, last: 0 })
+  storage.set<Step>(KEY_STEP, { current: 0, last: 0, level: step.level })
   storage.remove(KEY_FINISHED)
   window.location.reload()
 }
@@ -86,6 +87,13 @@ export async function next(total: number) {
   }
 }
 
+export function selectLevel(lv: Level) {
+  if (lv === step.level) return
+  step.level = lv
+  storage.set<Step>(KEY_STEP, { current: 0, last: 0, level: step.level })
+  storage.remove(KEY_FINISHED)
+}
+
 function checkAnswer() {
   if (lesson.skip) {
     status.success = true
@@ -124,6 +132,7 @@ function checkAnswer() {
 
 function updateStorage(current: number) {
   storage.set(KEY_STEP, {
+    level: step.level,
     current,
     last: current > step.last ? current : step.last,
   })

@@ -1,4 +1,4 @@
-[[python]]
+[[basic]]
 title = "热身运动"
 content = """
 从这里开始，我们测试一下 Python 编程的基本格式。
@@ -10,7 +10,7 @@ hint = """
 你没事吧~你没事吧~你没事吧~【流汗黄豆】
 """
 
-[[python]]
+[[basic]]
 title = "输出语句"
 content = """
 输出**黄岩一职**，请补全代码！
@@ -21,7 +21,7 @@ hint = """
 这题要是再不会，我可要攻击你了！
 """
 
-[[python]]
+[[basic]]
 title = "输出语句 print()"
 content = """
 同样这题考察的也是输出语句，请输出**Python 编程入门**，注意文字需要用引号包裹起来，注意空格。
@@ -33,29 +33,24 @@ hint = """
 眼睛不需要可以捐给有需要的人！
 """
 
-[[python]]
+[[basic]]
 title = "真相只有一个"
 content = """
 （单选）请选择下列中正确的一项：
 """
 type = "选择"
-blank = [
-"""
+blank = ["""
 print=("后来，错过也成了人间常态。")
-""",
-"""
+""", """
 Print("你背朝太阳，就只能看到自己的影子。")
-""",
-"""
+""", """
 print(既然忘不掉，就把它留在心中，让时间去冲淡它。)
-""",
-"""
+""", """
 print("水的清澈，并非因为它不含杂质，而是在于懂得沉淀。")
-"""
-]
+"""]
 answer = ["d"]
 
-[[python]]
+[[basic]]
 title = "数值计算"
 content = """
 第一行：计算 1+1 的值
@@ -68,7 +63,7 @@ hint = """
 请查看 PPT
 """
 
-[[python]]
+[[basic]]
 title = "求余"
 content = """
 计算 5 除以 3 的余数，用什么符号表示求余捏？
@@ -79,7 +74,7 @@ hint = """
 提示：PPT 上有答案
 """
 
-[[python]]
+[[basic]]
 title = "用逗号分隔多个输出值"
 content = """
 在 print() 中可以输出多个内容，之间用**逗号**隔开。
@@ -88,14 +83,12 @@ content = """
 """
 blank = ['print(', '$$', '$', '$$$', ')']
 answer = [['"尼尔"', "'尼尔'"], [',', ', '], ['"机械纪元"', "'机械纪元'"]]
-code = [
-"""
+code = ["""
 # 举个例子
 print("熊大", "熊二", "光头强")
-"""
-]
+"""]
 
-[[python]]
+[[basic]]
 title = "输出语句的自定义分隔符号"
 content = """
 使用 sep="" 可以用于取消多个输出之间的空格。
@@ -109,7 +102,7 @@ print("尼尔", "机械纪元", sep="-")
 # 尼尔-机械纪元
 """]
 
-[[python]]
+[[basic]]
 title = "练习"
 content = """
 输出的文字用**下划线**连接。
@@ -120,24 +113,21 @@ hint = """
 提示：下划线 _ 就是 SHIFT + 减号
 """
 
-[[python]]
+[[basic]]
 title = "变量"
 content = """
 变量是编程中的重要概念，方便我们编写可读性很高的代码。
 变量有很多类型，包括文字、数字、真假、列表、字典等。
 """
-code = [
-"""
+code = ["""
 role_1 = "熊大"
 role_2 = "熊二"
 role_3 = "光头强"
-""",
-"""
+""", """
 money = 1000
 height = 1.82
 is_success = True
-""",
-"""
+""", """
 games = ["塞尔达传说", "重力异想世界", "合金装备", "最终幻想", "风之旅人"]
 role = {
     "name": "雷电将军",
@@ -145,7 +135,7 @@ role = {
 }
 """]
 
-[[python]]
+[[basic]]
 title = "变量的命名规则"
 content = """
 ① 变量名只能用"_"，数字，字母组成
@@ -157,32 +147,25 @@ content = """
 * Python 中的保留字：
 ['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
 """
-code = [
-"""
+code = ["""
 # 复制代码到自测猫运行，可以得到 Python 所有的保留字
 import keyword
 print(keyword.kwlist)
-"""
-]
+"""]
 
-[[python]]
+[[basic]]
 title = "变量的命令规则 1"
 content = """
 （多选题）以下哪些是【合法】的变量名
 """
 type = "选择"
-blank = [
-    "not",
-    "printIt",
-    "notTrue",
-    "print"
-]
+blank = ["not", "printIt", "notTrue", "print"]
 answer = ["b", "c"]
 hint = """
 请回到上一页看看保留字
 """
 
-[[python]]
+[[basic]]
 title = "变量的命令规则 2"
 content = """
 （多选题）以下哪些是【合法】的变量名，有点难度，要看仔细！
@@ -204,7 +187,7 @@ hint = """
 变量命名有诀窍，请回到上上页看变量命名的第一个规则
 """
 
-[[python]]
+[[basic]]
 title = "变量的命令规则 3"
 content = """
 （多选题）以下哪些是【违法】的变量名
@@ -219,12 +202,26 @@ blank = [
     "G_a_m_e",
     "gAME_",
     "game",
-    "g_ame"
+    "g_ame",
 ]
 answer = ["a", "b", "c", "d", "e"]
 
-[[python]]
+[[basic]]
 title = "恭喜你"
 content = """
 完成测试，可以帮帮其他同学哦！
+"""
+
+[[advanced]]
+title = "选择语句"
+content = """
+尚未施工，敬请期待
+"""
+blank = ['$$']
+answer = ['yes']
+
+[[advanced]]
+title = "选择语句2"
+content = """
+尚未施工，敬请期待
 """

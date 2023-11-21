@@ -8,7 +8,7 @@
           </template>
         </n-button>
       </n-dropdown>
-      <h2>徐越的练习册</h2>
+      <h2>徐越的练习册 - {{ getLevelLabel(step.level) }}</h2>
     </n-space>
     <n-space align="center">
       <span>{{ step.current + 1 }} / {{ props.count }}</span>
@@ -29,11 +29,15 @@
 import { NIcon, NDropdown, NButton } from "naive-ui"
 import type { DropdownOption } from "naive-ui"
 import Menu from "../icons/Menu.vue"
+import Python from "../icons/Python.vue"
+import Loop from "../icons/Loop.vue"
+import Medal from "../icons/Medal.vue"
 import Cat from "../icons/Cat.vue"
 import Dog from "../icons/Dog.vue"
 import Book from "../icons/Book.vue"
-import { step, reset } from "../composables"
+import { step, reset, selectLevel } from "../composables"
 import { h } from "vue"
+import { Level, getLevelLabel } from "../utils/types"
 
 const props = defineProps<{
   count: number
@@ -41,8 +45,33 @@ const props = defineProps<{
 
 const menus: DropdownOption[] = [
   {
+    label: getLevelLabel(Level.basic),
+    key: Level.basic,
+    icon: () => h(NIcon, { component: Python }),
+    props: {
+      onClick: () => selectLevel(Level.basic),
+    },
+  },
+  {
+    label: getLevelLabel(Level.advanced),
+    key: Level.advanced,
+    icon: () => h(NIcon, { component: Loop }),
+    props: {
+      onClick: () => selectLevel(Level.advanced),
+    },
+  },
+  {
+    label: "高阶知识",
+    key: "golden medal",
+    icon: () => h(NIcon, { component: Medal }),
+    disabled: true,
+    props: {
+      onClick: () => {},
+    },
+  },
+  {
     label: "判题狗",
-    key: "1",
+    key: "oj",
     icon: () => h(NIcon, { component: Dog }),
     props: {
       onClick: () => window.open("https://oj.hyyz.izhai.net"),
@@ -50,7 +79,7 @@ const menus: DropdownOption[] = [
   },
   {
     label: "自测猫",
-    key: "2",
+    key: "code",
     icon: () => h(NIcon, { component: Cat }),
     props: {
       onClick: () => window.open("https://code.hyyz.izhai.net"),
@@ -58,7 +87,7 @@ const menus: DropdownOption[] = [
   },
   {
     label: "编程书",
-    key: "3",
+    key: "book",
     icon: () => h(NIcon, { component: Book }),
     props: {
       onClick: () => window.open("https://book.hyyz.izhai.net"),

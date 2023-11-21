@@ -10,9 +10,9 @@
     <n-layout position="absolute">
       <n-layout-content>
         <n-space size="large" vertical class="container">
-          <Header :count="lessons.length" />
+          <Header :count="count" />
           <Content />
-          <Actions :count="lessons.length" />
+          <Actions :count="count" />
         </n-space>
       </n-layout-content>
     </n-layout>
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watchEffect } from "vue"
+import { computed, onMounted, watchEffect } from "vue"
 import {
   zhCN,
   dateZhCN,
@@ -37,7 +37,7 @@ import Header from "./components/Header.vue"
 import Content from "./components/Content.vue"
 import Actions from "./components/Actions.vue"
 import { storage } from "./utils/storage"
-import { Step, Type } from "./utils/types"
+import { Lesson, Level, Step, Type } from "./utils/types"
 import { KEY_FINISHED, KEY_STEP, RE } from "./utils/constants"
 import { step, status, lesson, inputs, chooses } from "./composables"
 import lessons from "./data/python.json"
@@ -72,16 +72,23 @@ const themeOverrides: GlobalThemeOverrides = {
 
 const isDark = usePreferredDark()
 
+const count = computed(() => lessons[step.level].length)
+
 onMounted(() => {
   status.success = step.current < step.last || lesson.skip
 })
 
 watchEffect(() => {
-  const cached = storage.get<Step>(KEY_STEP) || { last: 0, current: 0 }
+  const cached = storage.get<Step>(KEY_STEP) || {
+    last: 0,
+    current: 0,
+    level: Level.basic,
+  }
   step.current = cached.current
   step.last = cached.last
+  step.level = cached.level
 
-  const lessonData = lessons[step.current]
+  const lessonData = lessons[step.level][step.current] as Lesson
   lesson.title = lessonData.title
   lesson.content = lessonData.content
   lesson.code = lessonData.code ?? []
