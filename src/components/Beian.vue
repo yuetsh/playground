@@ -1,5 +1,5 @@
 <template>
-  <n-space justify="center" class="beian">
+  <n-space justify="center">
     <n-button text @click="goICP">浙ICP备2023044109号</n-button>
     <div>
       <img src="/备案图标.png" alt="备案图标" />
@@ -24,14 +24,7 @@ function goPublicSecurity() {
 }
 </script>
 <style scoped>
-.beian {
-  position: fixed;
-  left: 50%;
-  bottom: 20px;
-  transform: translateX(-50%);
-}
-
-.beian img {
+img {
   width: 14px;
   height: 14px;
   transform: translateY(2px);
