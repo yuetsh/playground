@@ -74,7 +74,7 @@ const menus: DropdownOption[] = [
     key: "oj",
     icon: () => h(NIcon, { component: Dog }),
     props: {
-      onClick: () => window.open("https://oj.hyyz.izhai.net"),
+      onClick: () => window.open("https://oj.xuyue.cc"),
     },
   },
   {
@@ -82,7 +82,7 @@ const menus: DropdownOption[] = [
     key: "code",
     icon: () => h(NIcon, { component: Cat }),
     props: {
-      onClick: () => window.open("https://code.hyyz.izhai.net"),
+      onClick: () => window.open("https://code.xuyue.cc"),
     },
   },
   {
@@ -90,7 +90,7 @@ const menus: DropdownOption[] = [
     key: "book",
     icon: () => h(NIcon, { component: Book }),
     props: {
-      onClick: () => window.open("https://book.hyyz.izhai.net"),
+      onClick: () => window.open("https://book.xuyue.cc"),
     },
   },
 ]

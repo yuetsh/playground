@@ -15,6 +15,7 @@
           <Actions :count="count" />
         </n-space>
       </n-layout-content>
+      <Beian />
     </n-layout>
   </n-config-provider>
 </template>
@@ -36,6 +37,7 @@ import shuffle from "lodash/shuffle"
 import Header from "./components/Header.vue"
 import Content from "./components/Content.vue"
 import Actions from "./components/Actions.vue"
+import Beian from "./components/Beian.vue"
 import { storage } from "./utils/storage"
 import { Lesson, Level, Step, Type } from "./utils/types"
 import { KEY_FINISHED, KEY_STEP, RE } from "./utils/constants"
