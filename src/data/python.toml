@@ -7,7 +7,7 @@ content = """
 blank = ['$']
 answer = ['ok']
 hint = """
-你没事吧~你没事吧~你没事吧~【流汗黄豆】
+ok
 """
 
 [[basic]]

@@ -70,6 +70,10 @@ const menus: DropdownOption[] = [
     },
   },
   {
+    key: "分割线",
+    type: "divider",
+  },
+  {
     label: "判题狗",
     key: "oj",
     icon: () => h(NIcon, { component: Dog }),
@@ -86,11 +90,11 @@ const menus: DropdownOption[] = [
     },
   },
   {
-    label: "编程书",
+    label: "基础课",
     key: "book",
     icon: () => h(NIcon, { component: Book }),
     props: {
-      onClick: () => window.open("https://book.xuyue.cc"),
+      onClick: () => window.open("https://python.xuyue.cc"),
     },
   },
 ]

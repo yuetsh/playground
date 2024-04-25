@@ -25,7 +25,7 @@ export enum Level {
 }
 
 export function getLevelLabel(lv: Level) {
-  return ({ [Level.basic]: "基础必会", [Level.advanced]: "进阶提高" })[lv]
+  return { [Level.basic]: "基础必会", [Level.advanced]: "进阶提高" }[lv]
 }
 
 export interface Step {

@@ -10,10 +10,7 @@ async function parse() {
     encoding: "utf8",
   })
   const data = toml.parse(content)
-  fs.writeFile(
-    path.resolve(`src/data/${language}.json`),
-    JSON.stringify(data),
-  )
+  fs.writeFile(path.resolve(`src/data/${language}.json`), JSON.stringify(data))
 }
 
 parse()
