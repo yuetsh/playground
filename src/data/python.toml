@@ -230,13 +230,13 @@ title = "选择语句"
 content = """
 阅读下面的代码，找出其中出错的地方
 """
-code = """
+code = ["""
 lang=input()
 if lang="Python"
     print("Python期中考试")
 else lang="C语言"
     print("C语言期中考试")
-"""
+"""]
 type = "选择"
 blank = ["等于是两个等号", "缺失冒号", "缩进有问题", "else后面不需要接条件"]
 answer = ["a", "b", "d"]
