@@ -1,3 +1,4 @@
+# 第一阶段
 [[basic]]
 title = "热身运动"
 content = """
@@ -207,6 +208,7 @@ content = """
 完成测试，可以帮帮其他同学哦！
 """
 
+# 第二阶段
 [[advanced]]
 title = "选择语句"
 content = """
@@ -226,13 +228,15 @@ answer = ['else']
 [[advanced]]
 title = "选择语句"
 content = """
-下面代码是正确的吗？
+阅读下面的代码，找出其中出错的地方
 """
-code = ["""
-fenshu = 68
-if xingming = 70:
-    print("恭喜你")
-"""]
+code = """
+lang=input()
+if lang="Python"
+    print("Python期中考试")
+else lang="C语言"
+    print("C语言期中考试")
+"""
 type = "选择"
-blank = ["正确 ✔", "错误 ❌"]
-answer = ["b"]
+blank = ["等于是两个等号", "缺失冒号", "缩进有问题", "else后面不需要接条件"]
+answer = ["a", "b", "d"]
