@@ -18,7 +18,7 @@ content = """
 blank = ['$$', '"黄岩一职"', '$']
 answer = ['print(', ')']
 hint = """
-这题要是再不会，我可要攻击你了！
+注意英文括号
 """
 
 [[basic]]
@@ -29,9 +29,6 @@ content = """
 """
 blank = ['print(', '$$$$', ')']
 answer = [['"Python 编程入门"', "'Python 编程入门'"]]
-hint = """
-眼睛不需要可以捐给有需要的人！
-"""
 
 [[basic]]
 title = "真相只有一个"
@@ -53,14 +50,15 @@ answer = ["d"]
 [[basic]]
 title = "数值计算"
 content = """
-第一行：计算 1+1 的值
-第二行：计算 10 整除 2
-(不需要你自己计算！)
+在 print() 函数中可以直接写算式，Python 会直接计算出式子的运算结果
+第一行：计算 114+514 的结果
+第二行：计算 10 整除 3 的结果
+(注意顺序，不需要你自己计算！)
 """
 blank = ['print(', '$$', ')', '\n', 'print(', '$$', ')']
-answer = [['1+1', '1 + 1'], ['10//2', '10 // 2']]
+answer = [['114+514', '114 + 514'], ['10//3', '10 // 3']]
 hint = """
-请查看 PPT
+整除是两个斜杠哦 ~
 """
 
 [[basic]]
@@ -70,9 +68,6 @@ content = """
 """
 blank = ['print(', '$$', ')']
 answer = ['5%3', '5 % 3']
-hint = """
-提示：PPT 上有答案
-"""
 
 [[basic]]
 title = "用逗号分隔多个输出值"
@@ -159,7 +154,7 @@ content = """
 （多选题）以下哪些是【合法】的变量名
 """
 type = "选择"
-blank = ["not", "printIt", "notTrue", "print"]
+blank = ["and", "app1e", "Ban_Ana", "girl-name", "3cat", "d0G#"]
 answer = ["b", "c"]
 hint = """
 请回到上一页看看保留字
@@ -215,13 +210,29 @@ content = """
 [[advanced]]
 title = "选择语句"
 content = """
-尚未施工，敬请期待
+表示**如果**的关键字是：
 """
-blank = ['$$']
-answer = ['yes']
+blank = ['$']
+answer = ['if']
 
 [[advanced]]
-title = "选择语句2"
+title = "选择语句"
 content = """
-尚未施工，敬请期待
+表示**否则**的关键字是：
 """
+blank = ['$$']
+answer = ['else']
+
+[[advanced]]
+title = "选择语句"
+content = """
+下面代码是正确的吗？
+"""
+code = ["""
+fenshu = 68
+if xingming = 70:
+    print("恭喜你")
+"""]
+type = "选择"
+blank = ["正确 ✔", "错误 ❌"]
+answer = ["b"]
