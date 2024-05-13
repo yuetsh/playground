@@ -49,6 +49,14 @@ print("水的清澈，并非因为它不含杂质，而是在于懂得沉淀。"
 answer = ["d"]
 
 [[basic]]
+title = "输入语句 input()"
+content = """
+请输入提示语：**请输入分数**
+"""
+blank = ["a=input(", "$$$", ")"]
+answer = ["\"请输入分数\"", "'请输入分数'"]
+
+[[basic]]
 title = "数值计算"
 content = """
 在 print() 函数中可以直接写算式，Python 会直接计算出式子的运算结果
