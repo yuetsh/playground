@@ -10,11 +10,10 @@
     </div>
     <n-space vertical align="end">
       <n-space align="center">
-        <n-icon
+        <Icon
           v-if="status.error"
-          :component="Lock"
-          size="26"
-          color="#d03050"
+          icon="streamline-emojis:locked-with-key"
+          width="30"
           :class="status.errorLoading && 'animate__animated animate__swing'"
         />
         <n-button
@@ -32,19 +31,19 @@
   </n-space>
 </template>
 <script lang="ts" setup>
-import { onMounted, watch } from "vue"
-import { NTag, NIcon, NButton } from "naive-ui"
+import { Icon } from "@iconify/vue"
 import { useMagicKeys } from "@vueuse/core"
+import { NButton, NTag } from "naive-ui"
+import { onMounted, watch } from "vue"
 import {
-  step,
-  status,
-  next,
-  prev,
-  stop,
   isDesktop,
   isPending,
+  next,
+  prev,
+  status,
+  step,
+  stop,
 } from "../composables"
-import Lock from "../icons/Lock.vue"
 
 const props = defineProps<{
   count: number

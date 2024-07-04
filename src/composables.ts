@@ -1,10 +1,9 @@
+import { promiseTimeout, useTimeout, useWindowSize } from "@vueuse/core"
+import confetti from "canvas-confetti"
 import { computed, reactive, ref } from "vue"
-import { promiseTimeout, useWindowSize, useTimeout } from "@vueuse/core"
-import { Lesson, Level, Step, Type } from "./utils/types"
 import { KEY_FINISHED, KEY_STEP } from "./utils/constants"
 import { storage } from "./utils/storage"
-// @ts-ignore
-import confetti from "canvas-confetti"
+import { Lesson, Level, Step, Type } from "./utils/types"
 
 const { width } = useWindowSize()
 export const { isPending, start, stop } = useTimeout(3000, { controls: true })

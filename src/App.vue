@@ -21,28 +21,28 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, watchEffect } from "vue"
+import { usePreferredDark } from "@vueuse/core"
+import shuffle from "lodash/shuffle"
+import type { GlobalThemeOverrides } from "naive-ui"
 import {
-  zhCN,
+  darkTheme,
   dateZhCN,
+  lightTheme,
   NConfigProvider,
   NLayout,
   NLayoutContent,
-  darkTheme,
-  lightTheme,
+  zhCN,
 } from "naive-ui"
-import type { GlobalThemeOverrides } from "naive-ui"
-import { usePreferredDark } from "@vueuse/core"
-import shuffle from "lodash/shuffle"
-import Header from "./components/Header.vue"
-import Content from "./components/Content.vue"
+import { computed, onMounted, watchEffect } from "vue"
 import Actions from "./components/Actions.vue"
 import Beian from "./components/Beian.vue"
+import Content from "./components/Content.vue"
+import Header from "./components/Header.vue"
+import { chooses, inputs, lesson, status, step } from "./composables"
+import lessons from "./data/python.json"
+import { KEY_FINISHED, KEY_STEP, RE } from "./utils/constants"
 import { storage } from "./utils/storage"
 import { Lesson, Level, Step, Type } from "./utils/types"
-import { KEY_FINISHED, KEY_STEP, RE } from "./utils/constants"
-import { step, status, lesson, inputs, chooses } from "./composables"
-import lessons from "./data/python.json"
 
 import hljs from "highlight.js/lib/core"
 import python from "highlight.js/lib/languages/python"

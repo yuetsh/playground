@@ -16,7 +16,7 @@
                 class="animate__animated animate__heartBeat animate__infinite"
               >
                 <template #icon>
-                  <n-icon :component="Help" size="20" />
+                  <Icon icon="streamline-emojis:folded-hands-2" width="20" />
                 </template>
               </n-button>
             </template>
@@ -75,31 +75,30 @@
   </n-space>
 </template>
 <script lang="ts" setup>
+import { Icon } from "@iconify/vue"
 import { marked } from "marked"
-import { Type } from "../utils/types"
 import {
-  inputs,
-  chooses,
-  lesson,
-  contents,
-  hints,
-  isDesktop,
-} from "../composables"
-import { RE } from "../utils/constants"
-import {
-  NCheckboxGroup,
-  NRadioGroup,
-  NCheckbox,
-  NRadio,
+  NButton,
   NCard,
+  NCheckbox,
+  NCheckboxGroup,
   NCode,
   NInput,
   NP,
-  NIcon,
-  NButton,
   NPopover,
+  NRadio,
+  NRadioGroup,
 } from "naive-ui"
-import Help from "../icons/Help.vue"
+import {
+  chooses,
+  contents,
+  hints,
+  inputs,
+  isDesktop,
+  lesson,
+} from "../composables"
+import { RE } from "../utils/constants"
+import { Type } from "../utils/types"
 </script>
 <style scoped>
 .code {

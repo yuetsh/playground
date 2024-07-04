@@ -1,7 +1,7 @@
-import { createApp } from "vue"
+import "animate.css"
 import { create, NSpace } from "naive-ui"
 import "normalize.css"
-import "animate.css"
+import { createApp } from "vue"
 import App from "./App.vue"
 
 const naive = create({

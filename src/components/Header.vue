@@ -1,11 +1,9 @@
 <template>
   <n-space justify="space-between" align="center">
     <n-space align="center">
-      <n-dropdown placement="bottom-start" :options="menus">
+      <n-dropdown placement="bottom-start" size="large" :options="menus">
         <n-button quaternary circle>
-          <template #icon>
-            <n-icon :component="Menu" size="20" />
-          </template>
+          <Icon icon="streamline-emojis:clipboard" width="20" />
         </n-button>
       </n-dropdown>
       <h2>徐越的练习册 - {{ getLevelLabel(step.level) }}</h2>
@@ -26,17 +24,11 @@
   </n-space>
 </template>
 <script lang="ts" setup>
-import { NIcon, NDropdown, NButton } from "naive-ui"
+import { Icon } from "@iconify/vue"
 import type { DropdownOption } from "naive-ui"
-import Menu from "../icons/Menu.vue"
-import Python from "../icons/Python.vue"
-import Loop from "../icons/Loop.vue"
-import Medal from "../icons/Medal.vue"
-import Cat from "../icons/Cat.vue"
-import Dog from "../icons/Dog.vue"
-import Book from "../icons/Book.vue"
-import { step, reset, selectLevel } from "../composables"
+import { NButton, NDropdown } from "naive-ui"
 import { h } from "vue"
+import { reset, selectLevel, step } from "../composables"
 import { Level, getLevelLabel } from "../utils/types"
 
 const props = defineProps<{
@@ -47,7 +39,7 @@ const menus: DropdownOption[] = [
   {
     label: getLevelLabel(Level.basic),
     key: Level.basic,
-    icon: () => h(NIcon, { component: Python }),
+    icon: () => h(Icon, { icon: "streamline-emojis:baby-bottle", width: 20 }),
     props: {
       onClick: () => selectLevel(Level.basic),
     },
@@ -55,7 +47,7 @@ const menus: DropdownOption[] = [
   {
     label: getLevelLabel(Level.advanced),
     key: Level.advanced,
-    icon: () => h(NIcon, { component: Loop }),
+    icon: () => h(Icon, { icon: "streamline-emojis:automobile", width: 20 }),
     props: {
       onClick: () => selectLevel(Level.advanced),
     },
@@ -63,7 +55,7 @@ const menus: DropdownOption[] = [
   {
     label: "高阶知识",
     key: "golden medal",
-    icon: () => h(NIcon, { component: Medal }),
+    icon: () => h(Icon, { icon: "streamline-emojis:rocket", width: 20 }),
     disabled: true,
     props: {
       onClick: () => {},
@@ -76,7 +68,7 @@ const menus: DropdownOption[] = [
   {
     label: "判题狗",
     key: "oj",
-    icon: () => h(NIcon, { component: Dog }),
+    icon: () => h(Icon, { icon: "streamline-emojis:dog-face", width: 20 }),
     props: {
       onClick: () => window.open("https://oj.xuyue.cc"),
     },
@@ -84,7 +76,7 @@ const menus: DropdownOption[] = [
   {
     label: "自测猫",
     key: "code",
-    icon: () => h(NIcon, { component: Cat }),
+    icon: () => h(Icon, { icon: "streamline-emojis:cat-face", width: 20 }),
     props: {
       onClick: () => window.open("https://code.xuyue.cc"),
     },
@@ -92,7 +84,7 @@ const menus: DropdownOption[] = [
   {
     label: "基础课",
     key: "book",
-    icon: () => h(NIcon, { component: Book }),
+    icon: () => h(Icon, { icon: "streamline-emojis:open-book", width: 20 }),
     props: {
       onClick: () => window.open("https://python.xuyue.cc"),
     },
