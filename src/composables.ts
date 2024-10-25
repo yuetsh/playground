@@ -3,7 +3,8 @@ import confetti from "canvas-confetti"
 import { computed, reactive, ref } from "vue"
 import { KEY_FINISHED, KEY_STEP } from "./utils/constants"
 import { storage } from "./utils/storage"
-import { Lesson, Level, Step, Type } from "./utils/types"
+import { Lesson, Step, Type } from "./utils/types"
+import lessons from "./data/python.json"
 
 const { width } = useWindowSize()
 export const { isPending, start, stop } = useTimeout(3000, { controls: true })
@@ -24,7 +25,7 @@ export const lesson = reactive<Lesson>({
   hint: "",
 })
 export const step = reactive<Step>({
-  level: Level.basic,
+  title: Object.keys(lessons)[0] as any,
   current: 0,
   last: 0,
 })
@@ -38,7 +39,7 @@ export const hints = computed(() =>
 )
 
 export function reset() {
-  storage.set<Step>(KEY_STEP, { current: 0, last: 0, level: step.level })
+  storage.set<Step>(KEY_STEP, { current: 0, last: 0, title: step.title })
   storage.remove(KEY_FINISHED)
   window.location.reload()
 }
@@ -86,10 +87,10 @@ export async function next(total: number) {
   }
 }
 
-export function selectLevel(lv: Level) {
-  if (lv === step.level) return
-  step.level = lv
-  storage.set<Step>(KEY_STEP, { current: 0, last: 0, level: step.level })
+export function selectLesson(title: keyof typeof lessons) {
+  if (title === step.title) return
+  step.title = title
+  storage.set<Step>(KEY_STEP, { current: 0, last: 0, title: step.title })
   storage.remove(KEY_FINISHED)
 }
 
@@ -131,7 +132,7 @@ function checkAnswer() {
 
 function updateStorage(current: number) {
   storage.set(KEY_STEP, {
-    level: step.level,
+    title: step.title,
     current,
     last: current > step.last ? current : step.last,
   })

@@ -42,7 +42,7 @@ import { chooses, inputs, lesson, status, step } from "./composables"
 import lessons from "./data/python.json"
 import { KEY_FINISHED, KEY_STEP, RE } from "./utils/constants"
 import { storage } from "./utils/storage"
-import { Lesson, Level, Step, Type } from "./utils/types"
+import { Lesson, Step, Type } from "./utils/types"
 
 import hljs from "highlight.js/lib/core"
 import python from "highlight.js/lib/languages/python"
@@ -74,7 +74,7 @@ const themeOverrides: GlobalThemeOverrides = {
 
 const isDark = usePreferredDark()
 
-const count = computed(() => lessons[step.level].length)
+const count = computed(() => lessons[step.title].length)
 
 onMounted(() => {
   status.success = step.current < step.last || lesson.skip
@@ -84,13 +84,13 @@ watchEffect(() => {
   const cached = storage.get<Step>(KEY_STEP) || {
     last: 0,
     current: 0,
-    level: Level.basic,
+    title: Object.keys(lessons)[0],
   }
   step.current = cached.current
   step.last = cached.last
-  step.level = cached.level
+  step.title = cached.title as keyof typeof lessons
 
-  const lessonData = lessons[step.level][step.current] as Lesson
+  const lessonData = lessons[step.title][step.current] as Lesson
   lesson.title = lessonData.title
   lesson.content = lessonData.content
   lesson.code = lessonData.code ?? []

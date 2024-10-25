@@ -1,3 +1,5 @@
+import lessons from "../data/python.json"
+
 export interface Step {
   last: number
   current: number
@@ -19,17 +21,8 @@ export enum Type {
   options = "选择",
 }
 
-export enum Level {
-  basic = "basic",
-  advanced = "advanced",
-}
-
-export function getLevelLabel(lv: Level) {
-  return { [Level.basic]: "基础必会", [Level.advanced]: "进阶提高" }[lv]
-}
-
 export interface Step {
-  level: Level
+  title: keyof typeof lessons
   current: number
   last: number
 }

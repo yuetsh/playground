@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite",
+    "start": "start npm run watch && start vite",
+    "watch": "nodemon --watch ./src/data/python.toml node ./src/utils/parse.js",
     "build": "node ./src/utils/parse.js && vue-tsc && vite build",
     "preview": "vite preview",
     "fmt": "prettier --write src *.ts"
@@ -23,6 +24,7 @@
     "@iconify/vue": "^4.1.2",
     "@types/canvas-confetti": "^1.6.4",
     "@vitejs/plugin-vue": "^5.1.4",
+    "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "toml": "^3.0.0",
