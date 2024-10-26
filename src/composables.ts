@@ -1,10 +1,10 @@
 import { promiseTimeout, useTimeout, useWindowSize } from "@vueuse/core"
 import confetti from "canvas-confetti"
 import { computed, reactive, ref } from "vue"
+import lessons from "./contents/python.json"
 import { KEY_FINISHED, KEY_STEP } from "./utils/constants"
 import { storage } from "./utils/storage"
 import { Lesson, Step, Type } from "./utils/types"
-import lessons from "./data/python.json"
 
 const { width } = useWindowSize()
 export const { isPending, start, stop } = useTimeout(3000, { controls: true })
@@ -25,7 +25,8 @@ export const lesson = reactive<Lesson>({
   hint: "",
 })
 export const step = reactive<Step>({
-  title: Object.keys(lessons)[0] as any,
+  // @ts-ignore
+  title: Object.keys(lessons)[0],
   current: 0,
   last: 0,
 })

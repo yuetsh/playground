@@ -29,7 +29,7 @@ import type { DropdownOption } from "naive-ui"
 import { NButton, NDropdown } from "naive-ui"
 import { h } from "vue"
 import { reset, selectLesson, step } from "../composables"
-import lessons from "../data/python.json"
+import lessons from "../contents/python.json"
 
 const props = defineProps<{
   count: number
@@ -39,7 +39,7 @@ const menus: DropdownOption[] = [
   ...Object.keys(lessons).map((title: any, i: number) => ({
     label: title,
     key: title,
-    icon: () => h(Icon, { icon: `tabler:number-${i+1}-small`, width: 20 }),
+    icon: () => h(Icon, { icon: `tabler:number-${i + 1}-small`, width: 20 }),
     props: {
       onClick: () => selectLesson(title),
     },

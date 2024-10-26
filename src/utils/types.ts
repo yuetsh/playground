@@ -1,4 +1,4 @@
-import lessons from "../data/python.json"
+import lessons from "../contents/python.json"
 
 export interface Step {
   last: number

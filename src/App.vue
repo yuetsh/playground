@@ -39,7 +39,7 @@ import Beian from "./components/Beian.vue"
 import Content from "./components/Content.vue"
 import Header from "./components/Header.vue"
 import { chooses, inputs, lesson, status, step } from "./composables"
-import lessons from "./data/python.json"
+import lessons from "./contents/python.json"
 import { KEY_FINISHED, KEY_STEP, RE } from "./utils/constants"
 import { storage } from "./utils/storage"
 import { Lesson, Step, Type } from "./utils/types"
@@ -74,6 +74,7 @@ const themeOverrides: GlobalThemeOverrides = {
 
 const isDark = usePreferredDark()
 
+// @ts-ignore
 const count = computed(() => lessons[step.title].length)
 
 onMounted(() => {
@@ -90,6 +91,7 @@ watchEffect(() => {
   step.last = cached.last
   step.title = cached.title as keyof typeof lessons
 
+  // @ts-ignore
   const lessonData = lessons[step.title][step.current] as Lesson
   lesson.title = lessonData.title
   lesson.content = lessonData.content
