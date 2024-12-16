@@ -36,7 +36,7 @@ export interface User {
 }
 
 export interface Setting {
-  level_title: string
+  level_title: keyof typeof lessons
   start: boolean
   classname: string
 }

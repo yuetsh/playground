@@ -29,7 +29,7 @@
   <n-modal
     preset="card"
     v-model:show="show"
-    title="请选择"
+    title="请选择（只能选一次哦）"
     style="width: 500px"
   >
     <n-flex>
@@ -55,20 +55,21 @@ import { NButton, NDropdown, NModal } from "naive-ui"
 import { h, onMounted, ref } from "vue"
 import { getSetting, getUser, listUsers } from "../api"
 import {
+  currentUser,
   reset,
   selectLesson,
+  showTest,
   showUsername,
   step,
   totalStep,
   users,
-  currentUser,
-  showTest,
 } from "../composables"
 import lessons from "../contents/python.json"
+import { USER } from "../utils/constants"
+import { storage } from "../utils/storage"
 import { User } from "../utils/types"
 
 const show = ref(false)
-
 
 const menus: DropdownOption[] = [
   ...Object.keys(lessons).map((title: any, i: number) => ({
@@ -118,6 +119,8 @@ async function chooseUser() {
 
 async function submit(item: User) {
   currentUser.value = item
+  showUsername.value = true
+  storage.set(USER, item)
   const res = await getUser(item.name, item.classname)
   step.title = res.level_title
   step.current = res.current_step
@@ -125,6 +128,13 @@ async function submit(item: User) {
 
 onMounted(async () => {
   const res = await getSetting()
-  showUsername.value = res.start && res.level_title === step.title
+  console.log(res)
+  selectLesson(res.level_title || "输入输出")
+  currentUser.value = storage.get(USER)
+  showUsername.value = !!currentUser.value
+  if (res.start && !currentUser.value) {
+    show.value = true
+    users.value = await listUsers()
+  }
 })
 </script>
