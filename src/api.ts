@@ -1,7 +1,7 @@
 import axios from "axios"
 import { Setting } from "./utils/types"
 
-const http = axios.create({ baseURL: "http://localhost:8000/api/core" })
+const http = axios.create({ baseURL: "https://playapi.xuyue.cc/api/core" })
 
 export async function getSetting() {
   const res = await http.get<Setting>("/setting")
