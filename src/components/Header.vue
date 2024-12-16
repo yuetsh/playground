@@ -1,39 +1,74 @@
 <template>
-  <n-space justify="space-between" align="center">
-    <n-space align="center">
+  <n-flex justify="space-between" align="center">
+    <n-flex align="center">
       <n-dropdown placement="bottom-start" size="large" :options="menus">
         <n-button quaternary circle>
           <Icon icon="streamline-emojis:clipboard" width="20" />
         </n-button>
       </n-dropdown>
       <h2>徐越的练习册 - {{ step.title }}</h2>
-    </n-space>
-    <n-space align="center">
-      <span>{{ step.current + 1 }} / {{ props.count }}</span>
+    </n-flex>
+    <n-flex align="center">
+      <span>{{ step.current + 1 }} / {{ totalStep }}</span>
       <n-button
         :class="
-          step.current === props.count - 1 &&
+          step.current === totalStep - 1 &&
           'animate__animated animate__headShake animate__infinite'
         "
         tertiary
         @click="reset"
+        v-if="false"
       >
         再次挑战
       </n-button>
-    </n-space>
-  </n-space>
+      <n-button v-if="showUsername && !showTest" @click="chooseUser">
+        {{ currentUser ? currentUser.name : "选择用户" }}
+      </n-button>
+    </n-flex>
+  </n-flex>
+  <n-modal
+    preset="card"
+    v-model:show="show"
+    title="请选择"
+    style="width: 500px"
+  >
+    <n-flex>
+      <n-button
+        v-for="item in users"
+        @click="submit(item)"
+        :key="item.id"
+        :type="
+          !!currentUser && currentUser.name === item.name
+            ? 'primary'
+            : 'default'
+        "
+      >
+        {{ item.name }}
+      </n-button>
+    </n-flex>
+  </n-modal>
 </template>
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue"
 import type { DropdownOption } from "naive-ui"
-import { NButton, NDropdown } from "naive-ui"
-import { h } from "vue"
-import { reset, selectLesson, step } from "../composables"
+import { NButton, NDropdown, NModal } from "naive-ui"
+import { h, onMounted, ref } from "vue"
+import { getSetting, getUser, listUsers } from "../api"
+import {
+  reset,
+  selectLesson,
+  showUsername,
+  step,
+  totalStep,
+  users,
+  currentUser,
+  showTest,
+} from "../composables"
 import lessons from "../contents/python.json"
+import { User } from "../utils/types"
 
-const props = defineProps<{
-  count: number
-}>()
+const show = ref(false)
+
 
 const menus: DropdownOption[] = [
   ...Object.keys(lessons).map((title: any, i: number) => ({
@@ -74,4 +109,22 @@ const menus: DropdownOption[] = [
     },
   },
 ]
+
+async function chooseUser() {
+  if (currentUser.value && currentUser.value.name) return
+  show.value = true
+  users.value = await listUsers()
+}
+
+async function submit(item: User) {
+  currentUser.value = item
+  const res = await getUser(item.name, item.classname)
+  step.title = res.level_title
+  step.current = res.current_step
+}
+
+onMounted(async () => {
+  const res = await getSetting()
+  showUsername.value = res.start && res.level_title === step.title
+})
 </script>

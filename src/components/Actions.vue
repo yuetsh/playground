@@ -1,15 +1,15 @@
 <template>
-  <n-space class="actions" justify="space-between">
+  <n-flex class="actions" justify="space-between">
     <div>
-      <n-space vertical align="start" v-if="step.current !== 0">
+      <n-flex vertical align="start" v-if="step.current !== 0">
         <n-button tertiary type="success" size="large" @click="prev">
           上一个
         </n-button>
         <n-tag v-if="isDesktop" class="tag" :bordered="false">SHIFT+←</n-tag>
-      </n-space>
+      </n-flex>
     </div>
-    <n-space vertical align="end">
-      <n-space align="center">
+    <n-flex vertical align="end">
+      <n-flex align="center">
         <Icon
           v-if="status.error"
           icon="streamline-emojis:locked-with-key"
@@ -21,14 +21,14 @@
           tertiary
           type="success"
           size="large"
-          @click="() => next(props.count)"
+          @click="() => next(totalStep)"
         >
-          {{ step.current < props.count - 1 ? "下一个" : "全部完成" }}
+          {{ step.current < totalStep - 1 ? "下一个" : "全部完成" }}
         </n-button>
-      </n-space>
+      </n-flex>
       <n-tag v-if="isDesktop" class="tag" :bordered="false">SHIFT+→</n-tag>
-    </n-space>
-  </n-space>
+    </n-flex>
+  </n-flex>
 </template>
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue"
@@ -43,18 +43,15 @@ import {
   status,
   step,
   stop,
+  totalStep,
 } from "../composables"
-
-const props = defineProps<{
-  count: number
-}>()
 
 const { shift_left, shift_right } = useMagicKeys()
 
 onMounted(stop)
 
 watch(shift_right, (v) => {
-  if (v) next(props.count)
+  if (v) next(totalStep.value)
 })
 
 watch(shift_left, (v) => {

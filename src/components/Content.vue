@@ -1,8 +1,8 @@
 <template>
-  <n-space size="large" vertical>
+  <n-flex size="large" vertical>
     <n-card>
       <template #header>
-        <n-space align="center">
+        <n-flex align="center">
           {{ lesson.title }}
           <n-popover
             v-if="lesson.hint"
@@ -22,7 +22,7 @@
             </template>
             <div v-for="(item, index) in hints" :key="index">{{ item }}</div>
           </n-popover>
-        </n-space>
+        </n-flex>
       </template>
       <n-p
         v-for="(item, index) in contents"
@@ -61,7 +61,7 @@
         :is="lesson.answer.length === 1 ? NRadioGroup : NCheckboxGroup"
         v-model:value="chooses"
       >
-        <n-space vertical>
+        <n-flex vertical>
           <Component
             :is="lesson.answer.length === 1 ? NRadio : NCheckbox"
             v-for="(item, index) in lesson.blank"
@@ -69,13 +69,15 @@
             :value="item"
             :label="item"
           />
-        </n-space>
+        </n-flex>
       </Component>
     </n-card>
-  </n-space>
+  </n-flex>
+
 </template>
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue"
+import { useMagicKeys } from "@vueuse/core"
 import { marked } from "marked"
 import {
   NButton,
@@ -89,6 +91,8 @@ import {
   NRadio,
   NRadioGroup,
 } from "naive-ui"
+import { ref, watch } from "vue"
+import { getSetting, listUsers, toggleStart } from "../api"
 import {
   chooses,
   contents,

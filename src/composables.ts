@@ -1,10 +1,11 @@
 import { promiseTimeout, useTimeout, useWindowSize } from "@vueuse/core"
 import confetti from "canvas-confetti"
 import { computed, reactive, ref } from "vue"
+import { getSetting, updateStep } from "./api"
 import lessons from "./contents/python.json"
 import { KEY_FINISHED, KEY_STEP } from "./utils/constants"
 import { storage } from "./utils/storage"
-import { Lesson, Step, Type } from "./utils/types"
+import { Lesson, Step, Type, User } from "./utils/types"
 
 const { width } = useWindowSize()
 export const { isPending, start, stop } = useTimeout(3000, { controls: true })
@@ -32,12 +33,20 @@ export const step = reactive<Step>({
 })
 export const inputs = ref<string[]>([])
 export const chooses = ref()
+export const testStart = ref(false)
+export const users = ref<User[]>([])
+export const showUsername = ref(false)
+export const showTest = ref(false)
+export const currentUser = ref<User | null>(null)
+
 export const contents = computed(() =>
   lesson.content.split("\n").filter((it) => it !== ""),
 )
 export const hints = computed(() =>
   lesson.hint.split("\n").filter((it) => it !== ""),
 )
+// @ts-ignore
+export const totalStep = computed(() => lessons[step.title].length)
 
 export function reset() {
   storage.set<Step>(KEY_STEP, { current: 0, last: 0, title: step.title })
@@ -53,6 +62,9 @@ export function prev() {
   status.error = false
   status.errorLoading = false
   updateStorage(prevStep)
+  if (currentUser.value?.name) {
+    updateStep(currentUser.value.name, step.current)
+  }
 }
 
 export async function next(total: number) {
@@ -74,6 +86,9 @@ export async function next(total: number) {
     status.errorLoading = false
     status.errorLoading = false
     updateStorage(nextStep)
+    if (currentUser.value?.name) {
+      updateStep(currentUser.value.name, step.current)
+    }
   } else {
     // 最后一步
     start() // 禁用按钮，防止多次调用 confetti
@@ -85,14 +100,19 @@ export async function next(total: number) {
       spread: 350,
       origin: { x: 0.5, y: 0.4 },
     })
+    if (currentUser.value?.name) {
+      updateStep(currentUser.value.name, totalStep.value)
+    }
   }
 }
 
-export function selectLesson(title: keyof typeof lessons) {
+export async function selectLesson(title: keyof typeof lessons) {
   if (title === step.title) return
   step.title = title
   storage.set<Step>(KEY_STEP, { current: 0, last: 0, title: step.title })
   storage.remove(KEY_FINISHED)
+  const res = await getSetting()
+  showUsername.value = res.start && res.level_title === step.title
 }
 
 function checkAnswer() {

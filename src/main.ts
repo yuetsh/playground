@@ -1,11 +1,11 @@
 import "animate.css"
-import { create, NSpace } from "naive-ui"
+import { create, NFlex } from "naive-ui"
 import "normalize.css"
 import { createApp } from "vue"
 import App from "./App.vue"
 
 const naive = create({
-  components: [NSpace],
+  components: [NFlex],
 })
 
 const app = createApp(App)

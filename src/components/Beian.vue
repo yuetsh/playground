@@ -1,5 +1,5 @@
 <template>
-  <n-space justify="center">
+  <n-flex justify="center">
     <n-button text @click="goICP">浙ICP备2023044109号</n-button>
     <div>
       <img src="/备案图标.png" alt="备案图标" />
@@ -7,7 +7,7 @@
         浙公网安备33100402331786号
       </n-button>
     </div>
-  </n-space>
+  </n-flex>
 </template>
 <script lang="ts" setup>
 import { NButton } from "naive-ui"

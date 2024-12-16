@@ -10,8 +10,9 @@
     "fmt": "prettier --write src *.ts"
   },
   "dependencies": {
-    "@vueuse/core": "^11.1.0",
+    "@vueuse/core": "^11.3.0",
     "animate.css": "^4.1.1",
+    "axios": "^1.7.9",
     "canvas-confetti": "^1.9.3",
     "highlight.js": "^11.10.0",
     "lodash.shuffle": "^4.2.0",

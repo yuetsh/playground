@@ -26,3 +26,17 @@ export interface Step {
   current: number
   last: number
 }
+
+export interface User {
+  name: string
+  id: number
+  current_step: number
+  classname: string
+  level_title: number
+}
+
+export interface Setting {
+  level_title: string
+  start: boolean
+  classname: string
+}

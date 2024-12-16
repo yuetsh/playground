@@ -9,11 +9,14 @@
   >
     <n-layout position="absolute">
       <n-layout-content>
-        <n-space size="large" vertical class="container">
-          <Header :count="count" />
-          <Content />
-          <Actions :count="count" />
-        </n-space>
+        <n-flex size="large" vertical class="container">
+          <n-modal-provider>
+            <Header />
+            <Content />
+            <Actions />
+            <Test />
+          </n-modal-provider>
+        </n-flex>
       </n-layout-content>
       <Beian />
     </n-layout>
@@ -31,14 +34,24 @@ import {
   NConfigProvider,
   NLayout,
   NLayoutContent,
+  NModalProvider,
   zhCN,
 } from "naive-ui"
-import { computed, onMounted, watchEffect } from "vue"
+import { onMounted, watchEffect } from "vue"
 import Actions from "./components/Actions.vue"
 import Beian from "./components/Beian.vue"
 import Content from "./components/Content.vue"
 import Header from "./components/Header.vue"
-import { chooses, inputs, lesson, status, step } from "./composables"
+import Test from "./components/Test.vue"
+import {
+  chooses,
+  currentUser,
+  inputs,
+  lesson,
+  reset,
+  status,
+  step,
+} from "./composables"
 import lessons from "./contents/python.json"
 import { KEY_FINISHED, KEY_STEP, RE } from "./utils/constants"
 import { storage } from "./utils/storage"
@@ -74,10 +87,7 @@ const themeOverrides: GlobalThemeOverrides = {
 
 const isDark = usePreferredDark()
 
-// @ts-ignore
-const count = computed(() => lessons[step.title].length)
-
-onMounted(() => {
+onMounted(async () => {
   status.success = step.current < step.last || lesson.skip
 })
 
