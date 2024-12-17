@@ -43,15 +43,7 @@ import Beian from "./components/Beian.vue"
 import Content from "./components/Content.vue"
 import Header from "./components/Header.vue"
 import Test from "./components/Test.vue"
-import {
-  chooses,
-  currentUser,
-  inputs,
-  lesson,
-  reset,
-  status,
-  step,
-} from "./composables"
+import { chooses, inputs, lesson, status, step } from "./composables"
 import lessons from "./contents/python.json"
 import { KEY_FINISHED, KEY_STEP, RE } from "./utils/constants"
 import { storage } from "./utils/storage"

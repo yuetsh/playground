@@ -73,11 +73,9 @@
       </Component>
     </n-card>
   </n-flex>
-
 </template>
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue"
-import { useMagicKeys } from "@vueuse/core"
 import { marked } from "marked"
 import {
   NButton,
@@ -91,8 +89,6 @@ import {
   NRadio,
   NRadioGroup,
 } from "naive-ui"
-import { ref, watch } from "vue"
-import { getSetting, listUsers, toggleStart } from "../api"
 import {
   chooses,
   contents,
