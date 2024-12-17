@@ -17,6 +17,13 @@ export async function toggleStart(start: boolean, title: string, step: number) {
   return res.data
 }
 
+export async function updateSettingClassname(classname: string) {
+  const res = await http.put("/setting/classname", {
+    classname,
+  })
+  return res.data
+}
+
 export async function getUser(name: string, classname: string) {
   const res = await http.get("/user", {
     params: {
@@ -40,9 +47,7 @@ export async function updateStep(name: string, step: number) {
   return res.data
 }
 
-
 export async function resetAllUsers() {
   await http.put("/clear")
   return
 }
-

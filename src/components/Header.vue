@@ -31,6 +31,8 @@
     v-model:show="show"
     title="请选择（只能选一次哦）"
     style="width: 500px"
+    :mask-closable="false"
+    :closable="false"
   >
     <n-flex>
       <n-button
@@ -46,6 +48,11 @@
         {{ item.name }}
       </n-button>
     </n-flex>
+    <template #footer>
+      <n-flex justify="center">
+        <n-button block type="primary" @click="show = false">确定</n-button>
+      </n-flex>
+    </template>
   </n-modal>
 </template>
 <script lang="ts" setup>
@@ -128,7 +135,6 @@ async function submit(item: User) {
 
 onMounted(async () => {
   const res = await getSetting()
-  console.log(res)
   selectLesson(res.level_title || "输入输出")
   currentUser.value = storage.get(USER)
   showUsername.value = !!currentUser.value
