@@ -11,14 +11,18 @@
       <n-button @click="clearAll" v-if="!testStart">清空</n-button>
     </n-flex>
     <n-flex style="margin-top: 16px">
-      <n-gradient-text size="24">总人数：{{ info.total }}</n-gradient-text>
-      <n-gradient-text size="24">全部完成：{{ info.finished }}</n-gradient-text>
-      <n-gradient-text size="24">
+      <n-gradient-text size="24" type="warning">
+        总人数：{{ info.total }}
+      </n-gradient-text>
+      <n-gradient-text size="24" type="primary">
+        全部完成：{{ info.finished }}
+      </n-gradient-text>
+      <n-gradient-text size="24" type="info">
         占比：{{ info.personPercent }}%
       </n-gradient-text>
     </n-flex>
     <n-flex style="margin-top: 16px">
-      <n-gradient-text size="24">
+      <n-gradient-text size="24" type="danger">
         掌握程度：{{ info.problemPercent }}%
       </n-gradient-text>
     </n-flex>
@@ -82,11 +86,24 @@ function getInfo(users: User[]) {
   info.finished = users.filter(
     (it) => it.current_step === totalStep.value,
   ).length
-  info.personPercent = (info.finished / info.total).toFixed(2)
+  info.personPercent = ((info.finished / info.total) * 100).toFixed(2)
+  const totalProblems = users.length * totalStep.value
+  const solvedProblems = users
+    .map((it) => it.current_step)
+    .reduce((prev, curr) => prev + curr)
+    if (solvedProblems / totalProblems >= 1) {
+      info.problemPercent = "100.00"
+    } else {
+      info.problemPercent = ((solvedProblems / totalProblems) * 100).toFixed(2)
+    }
 }
 
-function clearAll() {
-  resetAllUsers()
+async function clearAll() {
+  await resetAllUsers()
+  users.value = users.value.map(it => {
+    it.current_step = 0
+    return it
+  })
   info.finished = 0
   info.personPercent = "0"
   info.problemPercent = "0"
