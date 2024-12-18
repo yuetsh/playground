@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "start": "start npm run watch && start rsbuild dev",
-    "watch": "nodemon --watch ./src/data/python.toml node ./src/utils/parse.js",
+    "watch": "nodemon --watch ./src/contents/python.toml node ./src/utils/parse.js",
     "build": "node ./src/utils/parse.js && rsbuild build",
     "preview": "rsbuild preview",
     "fmt": "prettier --write src *.ts"
@@ -16,7 +16,7 @@
     "canvas-confetti": "^1.9.3",
     "highlight.js": "^11.11.0",
     "lodash.shuffle": "^4.2.0",
-    "marked": "^15.0.4",
+    "marked": "^14.1.4",
     "naive-ui": "^2.40.3",
     "normalize.css": "^8.0.1",
     "vue": "^3.5.13"
