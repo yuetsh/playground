@@ -247,8 +247,24 @@ type = "选择"
 blank = ["等于应该是两个等号", "缺失冒号", "缩进有问题", "else后面不需要接条件"]
 answer = ["a", "b", "d"]
 
-[["循环结构"]]
-title = "开始吧~"
+
+[["while循环"]]
+title = "热身运动"
+content = """
+输入 **True** 进入死循环
+"""
+blank = [
+    "while ", "$$", ":", "\n",
+    "   print('hello python')"
+]
+answer = ["True"]
+hint = """
+True
+"""
+
+
+[["while循环"]]
+title = "看看仔细"
 content = """
 （单选题）下面表示循环的关键字正确的是：
 """
@@ -265,7 +281,7 @@ if
 answer = ["a"]
 
 
-[["循环结构"]]
+[["while循环"]]
 title = "hello python"
 content = """
 我希望输出 10 行 hello python ，请你补全代码：
@@ -278,8 +294,8 @@ blank = [
 ]
 answer = ["while", ":"]
 
-[["循环结构"]]
-title = "2的 N 次方"
+[["while循环"]]
+title = "2 的 N 次方"
 content = """
 康康学习了 IP 地址，他写了一段代码用来输出 2 的 N 次方：
 比如：2 4 8 16 32 64 128 等等
@@ -288,7 +304,7 @@ content = """
 code = ["""
 n=1
 i=0
-while i<4:
+while i<5:
     i=i+1
     n=n*2
     print(n)
@@ -298,9 +314,9 @@ blank = [
     "\n",
     "最终变量 n 的值是多少：", "$$"
 ]
-answer = ["4", "16"]
+answer = ["5", "32"]
 
-[["循环结构"]]
+[["while循环"]]
 title = "人生的 365 次方"
 content = """
 《蜗牛》周杰伦
