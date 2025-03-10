@@ -68,10 +68,11 @@ const keys = useMagicKeys()
 const shiftCtrlZ = keys["Shift+Ctrl+Z"]
 const options: DropdownOption[] = [
   { label: "23计算机3班", key: "23计算机3班" },
-  { label: "24计算机1班", key: "24计算机1班" },
-  { label: "24计算机2班", key: "24计算机2班" },
-  { label: "24计算机3班", key: "24计算机3班" },
-  { label: "24计算机4班", key: "24计算机4班" },
+  { label: "23计算机4班", key: "23计算机4班" },
+  // { label: "24计算机1班", key: "24计算机1班" },
+  // { label: "24计算机2班", key: "24计算机2班" },
+  // { label: "24计算机3班", key: "24计算机3班" },
+  // { label: "24计算机4班", key: "24计算机4班" },
 ]
 
 watch(shiftCtrlZ, async (v) => {
