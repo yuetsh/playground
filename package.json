@@ -3,35 +3,35 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "start npm run watch && start rsbuild dev",
+    "start": "rsbuild dev",
     "watch": "nodemon --watch ./src/contents/python.toml node ./src/utils/parse.js",
     "build": "node ./src/utils/parse.js && rsbuild build",
     "preview": "rsbuild preview",
     "fmt": "prettier --write src *.ts"
   },
   "dependencies": {
-    "@vueuse/core": "^12.0.0",
+    "@vueuse/core": "^13.0.0",
     "animate.css": "^4.1.1",
-    "axios": "^1.7.9",
+    "axios": "^1.8.4",
     "canvas-confetti": "^1.9.3",
-    "highlight.js": "^11.11.0",
+    "highlight.js": "^11.11.1",
     "lodash.shuffle": "^4.2.0",
-    "marked": "^14.1.4",
-    "naive-ui": "^2.40.3",
+    "marked": "^15.0.7",
+    "naive-ui": "^2.41.0",
     "normalize.css": "^8.0.1",
     "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@iconify/vue": "^4.2.0",
-    "@rsbuild/core": "^1.1.10",
-    "@rsbuild/plugin-vue": "^1.0.5",
-    "@types/canvas-confetti": "^1.6.4",
-    "@vitejs/plugin-vue": "^5.2.1",
+    "@iconify/vue": "^4.3.0",
+    "@rsbuild/core": "^1.2.19",
+    "@rsbuild/plugin-vue": "^1.0.7",
+    "@types/canvas-confetti": "^1.9.0",
+    "@vitejs/plugin-vue": "^5.2.3",
     "nodemon": "^3.1.9",
-    "prettier": "^3.4.2",
+    "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "toml": "^3.0.0",
-    "typescript": "^5.7.2",
-    "vue-tsc": "^2.1.10"
+    "typescript": "^5.8.2",
+    "vue-tsc": "^2.2.8"
   }
 }
