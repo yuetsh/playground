@@ -34,7 +34,10 @@
         掌握程度：{{ info.problemPercent }}%
       </n-gradient-text>
     </n-flex>
-    <n-flex style="margin-top: 16px">
+    <n-flex style="margin-top: 16px" v-if="showAnalyze">
+      <div v-html="marked.parse(mockMessage)"></div>
+    </n-flex>
+    <n-flex style="margin-top: 16px" v-else>
       <n-button
         style="width: 100px"
         :type="user.current_step === totalStep ? 'primary' : 'default'"
@@ -45,7 +48,14 @@
       </n-button>
     </n-flex>
     <n-flex style="margin-top: 16px">
-      <n-button type="primary" block>自动分析</n-button>
+      <n-button
+        type="primary"
+        block
+        @click="analyze"
+        :loading="showAnalyze && !mockMessage"
+      >
+        自动分析
+      </n-button>
     </n-flex>
   </n-modal>
 </template>
@@ -54,6 +64,7 @@ import { useIntervalFn, useMagicKeys } from "@vueuse/core"
 import type { DropdownOption } from "naive-ui"
 import { NButton, NDropdown, NGradientText, NModal } from "naive-ui"
 import { computed, reactive, ref, watch } from "vue"
+import { marked } from "marked"
 import {
   getSetting,
   listUsers,
@@ -62,16 +73,13 @@ import {
   updateSettingClassname,
 } from "../api"
 import { showTest, step, testStart, totalStep, users } from "../composables"
+import { mock } from "../utils/constants"
 import { User } from "../utils/types"
 
 let timeId: any = null
 const options: DropdownOption[] = [
   { label: "23计算机3班", key: "23计算机3班" },
   { label: "23计算机4班", key: "23计算机4班" },
-  // { label: "24计算机1班", key: "24计算机1班" },
-  // { label: "24计算机2班", key: "24计算机2班" },
-  // { label: "24计算机3班", key: "24计算机3班" },
-  // { label: "24计算机4班", key: "24计算机4班" },
 ]
 const timers: DropdownOption[] = [
   { label: "3分钟", key: "3" },
@@ -88,6 +96,8 @@ const info = reactive({
   personPercent: "0.00",
   problemPercent: "0.00",
 })
+const showAnalyze = ref(false)
+const mockMessage = ref("")
 
 const title = computed(() => {
   if (testStart.value) {
@@ -109,6 +119,7 @@ watch(shiftCtrlZ, async (v) => {
     testStart.value = data.start
     users.value = await listUsers()
     getInfo(users.value)
+    showAnalyze.value = false
   }
 })
 
@@ -179,6 +190,14 @@ async function clearAll() {
   info.problemPercent = "0.00"
   timeId = null
   remaining.value = Number(timer.value) * 60
+}
+
+async function analyze() {
+  showAnalyze.value = true
+  let n = setTimeout(() => {
+    mockMessage.value = mock
+    clearTimeout(n)
+  }, 6000)
 }
 
 const { pause, resume } = useIntervalFn(
