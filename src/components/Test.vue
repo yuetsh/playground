@@ -3,7 +3,7 @@
     v-model:show="showTest"
     preset="card"
     :mask-closable="false"
-    style="width: 500px"
+    style="width: 520px"
     :title="title"
   >
     <n-flex align="center">
