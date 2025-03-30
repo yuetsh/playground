@@ -6,7 +6,7 @@
           <Icon icon="streamline-emojis:clipboard" width="20" />
         </n-button>
       </n-dropdown>
-      <h2>徐越的练习册 - {{ step.title }}</h2>
+      <h2>限时鸭 - {{ step.title }}</h2>
     </n-flex>
     <n-flex align="center">
       <span>{{ step.current + 1 }} / {{ totalStep }}</span>
