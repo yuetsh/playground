@@ -1,7 +1,12 @@
 import axios from "axios"
 import { Setting } from "./utils/types"
 
-const http = axios.create({ baseURL: "https://playapi.xuyue.cc/api/core" })
+const BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8000/api/core"
+    : "https://playapi.xuyue.cc/api/core"
+
+const http = axios.create({ baseURL: BASE_URL })
 
 export async function getSetting() {
   const res = await http.get<Setting>("/setting")
@@ -50,4 +55,9 @@ export async function updateStep(name: string, step: number) {
 export async function resetAllUsers() {
   await http.put("/clear")
   return
+}
+
+export async function getAIMessage(message: string) {
+  const res = await http.post("/ai", { message })
+  return res.data
 }

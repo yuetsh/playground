@@ -35,7 +35,7 @@
       </n-gradient-text>
     </n-flex>
     <n-flex style="margin-top: 16px" v-if="showAnalyze">
-      <div v-html="marked.parse(mockMessage)"></div>
+      <div v-html="marked.parse(message)"></div>
     </n-flex>
     <n-flex style="margin-top: 16px" v-else>
       <n-button
@@ -52,7 +52,7 @@
         type="primary"
         block
         @click="analyze"
-        :loading="showAnalyze && !mockMessage"
+        :loading="showAnalyze && !message"
       >
         自动分析
       </n-button>
@@ -61,11 +61,12 @@
 </template>
 <script setup lang="ts">
 import { useIntervalFn, useMagicKeys } from "@vueuse/core"
+import { marked } from "marked"
 import type { DropdownOption } from "naive-ui"
 import { NButton, NDropdown, NGradientText, NModal } from "naive-ui"
 import { computed, reactive, ref, watch } from "vue"
-import { marked } from "marked"
 import {
+  getAIMessage,
   getSetting,
   listUsers,
   resetAllUsers,
@@ -73,7 +74,7 @@ import {
   updateSettingClassname,
 } from "../api"
 import { showTest, step, testStart, totalStep, users } from "../composables"
-import { mock } from "../utils/constants"
+import { AI_MESSAGES } from "../utils/constants"
 import { User } from "../utils/types"
 
 let timeId: any = null
@@ -97,7 +98,7 @@ const info = reactive({
   problemPercent: "0.00",
 })
 const showAnalyze = ref(false)
-const mockMessage = ref("")
+const message = ref("")
 
 const title = computed(() => {
   if (testStart.value) {
@@ -194,10 +195,7 @@ async function clearAll() {
 
 async function analyze() {
   showAnalyze.value = true
-  let n = setTimeout(() => {
-    mockMessage.value = mock
-    clearTimeout(n)
-  }, 6000)
+  message.value = await getAIMessage(AI_MESSAGES[step.title] ?? "")
 }
 
 const { pause, resume } = useIntervalFn(
