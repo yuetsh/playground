@@ -135,7 +135,7 @@ async function submit(item: User) {
 
 onMounted(async () => {
   const res = await getSetting()
-  selectLesson(res.level_title || "输入输出")
+  selectLesson(res.level_title || "基础不牢，地动山摇")
   currentUser.value = storage.get(USER)
   showUsername.value = !!currentUser.value
   if (res.start && !currentUser.value) {
