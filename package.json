@@ -10,28 +10,28 @@
     "fmt": "prettier --write src *.ts"
   },
   "dependencies": {
-    "@vueuse/core": "^13.0.0",
+    "@vueuse/core": "^13.7.0",
     "animate.css": "^4.1.1",
-    "axios": "^1.8.4",
+    "axios": "^1.11.0",
     "canvas-confetti": "^1.9.3",
     "highlight.js": "^11.11.1",
     "lodash.shuffle": "^4.2.0",
-    "marked": "^15.0.7",
-    "naive-ui": "^2.41.0",
+    "marked": "^16.2.0",
+    "naive-ui": "^2.42.0",
     "normalize.css": "^8.0.1",
-    "vue": "^3.5.13"
+    "vue": "^3.5.19"
   },
   "devDependencies": {
-    "@iconify/vue": "^4.3.0",
-    "@rsbuild/core": "^1.2.19",
-    "@rsbuild/plugin-vue": "^1.0.7",
+    "@iconify/vue": "^5.0.0",
+    "@rsbuild/core": "^1.4.15",
+    "@rsbuild/plugin-vue": "^1.1.1",
     "@types/canvas-confetti": "^1.9.0",
-    "@vitejs/plugin-vue": "^5.2.3",
-    "nodemon": "^3.1.9",
-    "prettier": "^3.5.3",
-    "prettier-plugin-organize-imports": "^4.1.0",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "prettier-plugin-organize-imports": "^4.2.0",
     "toml": "^3.0.0",
-    "typescript": "^5.8.2",
-    "vue-tsc": "^2.2.8"
+    "typescript": "^5.9.2",
+    "vue-tsc": "^3.0.6"
   }
 }

@@ -4,7 +4,7 @@ import { Setting } from "./utils/types"
 const BASE_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:8000/api/core"
-    : "https://playapi.xuyue.cc/api/core"
+    : "https://play.xuyue.cc/api/core"
 
 const http = axios.create({ baseURL: BASE_URL })
 
